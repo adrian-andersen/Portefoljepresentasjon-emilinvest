@@ -43,17 +43,17 @@
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
   <style>
-    /* Clean Light Executive Presentation Styling */
-    body {
+    /* Executive Viewport & Card Styling */
+    html, body {
+      height: 100%;
       background-color: #f8fafc;
       color: #0f172a;
       font-family: 'Inter', sans-serif;
     }
 
-    /* Subtle custom scrollbar */
     ::-webkit-scrollbar {
-      width: 6px;
-      height: 6px;
+      width: 5px;
+      height: 5px;
     }
     ::-webkit-scrollbar-track {
       background: #f1f5f9;
@@ -66,24 +66,26 @@
       background: #94a3b8;
     }
 
-    /* Executive White Card Styling with Refined Shadow */
-    .white-card {
-      background-color: #ffffff;
-      border: 1px solid #e2e8f0;
-      box-shadow: 0 4px 6px -1px rgba(15, 23, 42, 0.04), 0 2px 4px -2px rgba(15, 23, 42, 0.03);
-    }
-    .white-card-hover {
-      transition: all 0.2s ease-in-out;
-    }
-    .white-card-hover:hover {
-      border-color: #93c5fd;
-      box-shadow: 0 12px 20px -3px rgba(37, 99, 235, 0.08), 0 4px 6px -4px rgba(37, 99, 235, 0.05);
-      transform: translateY(-2px);
+    .slide-viewport {
+      height: calc(100vh - 4.5rem);
+      min-height: 700px;
     }
 
-    /* High-contrast Slide Transition */
-    .slide-section {
-      transition: opacity 0.25s ease-out, transform 0.25s ease-out;
+    .insight-card {
+      background-color: #ffffff;
+      border: 1px solid #e2e8f0;
+      box-shadow: 0 2px 4px -1px rgba(15, 23, 42, 0.04), 0 1px 2px -1px rgba(15, 23, 42, 0.03);
+    }
+    .insight-card:hover {
+      border-color: #93c5fd;
+      box-shadow: 0 10px 15px -3px rgba(37, 99, 235, 0.07);
+    }
+
+    .stat-pill {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.8125rem;
+      font-weight: 700;
+      letter-spacing: -0.01em;
     }
 
     @media print {
@@ -93,1004 +95,1004 @@
       .no-print {
         display: none !important;
       }
-      .slide-section {
-        display: block !important;
-        page-break-after: always;
+      .slide-viewport {
         height: auto !important;
         min-height: 100vh;
+        page-break-after: always;
       }
     }
   </style>
 </head>
-<body class="h-full overflow-hidden flex flex-col select-none bg-slate-50 text-slate-900">
+<body class="h-full overflow-hidden flex flex-col bg-slate-50 text-slate-900 select-none">
 
   <!-- TOP PROGRESS BAR -->
-  <div class="no-print h-1.5 w-full bg-slate-200 relative z-30">
+  <div class="no-print h-1.5 w-full bg-slate-200 shrink-0 relative z-30">
     <div id="progressBar" class="h-full bg-blue-600 transition-all duration-300" style="width: 10%;"></div>
   </div>
 
-  <!-- EXECUTIVE HEADER -->
-  <header class="no-print relative z-30 h-18 bg-white border-b border-slate-200 px-8 py-3.5 flex items-center justify-between shadow-xs shrink-0">
-    <!-- Left: Brand / Committee Context -->
-    <div class="flex items-center space-x-4">
-      <div class="flex items-center space-x-3">
-        <div class="w-9 h-9 rounded-xl bg-blue-600 flex items-center justify-center text-white shadow-sm shadow-blue-500/30">
-          <i data-lucide="layers" class="w-5 h-5"></i>
-        </div>
-        <div>
-          <div class="flex items-center space-x-2">
-            <span class="font-extrabold text-base tracking-tight text-slate-900 uppercase">EMILINVEST</span>
-            <span class="text-xs px-2.5 py-0.5 rounded-full bg-blue-50 text-blue-700 border border-blue-200 font-semibold uppercase tracking-wider">Investeringskomiteen</span>
-          </div>
-          <p class="text-xs text-slate-500 font-medium">Strategisk AI- & Teknologi-Allokering (4–5 Kjerneaksjer)</p>
-        </div>
+  <!-- HEADER -->
+  <header class="no-print h-16 bg-white border-b border-slate-200 px-6 sm:px-8 flex items-center justify-between shadow-2xs shrink-0 relative z-30">
+    <!-- Brand / Title -->
+    <div class="flex items-center space-x-3.5">
+      <div class="w-9 h-9 rounded-xl bg-blue-600 flex items-center justify-center text-white shadow-sm shadow-blue-500/25">
+        <i data-lucide="layers" class="w-5 h-5"></i>
       </div>
-
-      <div class="hidden lg:block h-6 w-px bg-slate-200"></div>
-
-      <!-- Current Slide Title -->
-      <div class="hidden lg:flex items-center space-x-2 text-sm">
-        <span class="text-slate-400 font-mono font-medium" id="headerSlideTag">01 / 10</span>
-        <span class="text-slate-800 font-bold max-w-md truncate" id="headerSlideTitle">Tittel & Porteføljestrategi</span>
+      <div>
+        <div class="flex items-center space-x-2">
+          <span class="font-black text-sm tracking-tight text-slate-900 uppercase">EMILINVEST</span>
+          <span class="text-xs px-2.5 py-0.5 rounded-full bg-blue-50 text-blue-700 border border-blue-200 font-bold uppercase tracking-wider">Investeringskomiteen</span>
+        </div>
+        <p class="text-xs text-slate-500 font-medium">Strategisk AI- & Teknologi-Allokering (4–5 Kjerneaksjer)</p>
+      </div>
+      
+      <div class="hidden md:block h-6 w-px bg-slate-200 ml-2"></div>
+      
+      <div class="hidden md:flex items-center space-x-2 text-sm">
+        <span class="text-slate-400 font-mono font-semibold" id="headerSlideTag">01 / 10</span>
+        <span class="text-slate-800 font-bold max-w-sm truncate" id="headerSlideTitle">Tittel & Porteføljestrategi</span>
       </div>
     </div>
 
-    <!-- Right: Big Slide Counter & Navigation Controls -->
-    <div class="flex items-center space-x-4">
-      <!-- Large Counter -->
-      <div class="flex items-center space-x-1.5 bg-slate-100 border border-slate-200 px-4 py-1.5 rounded-xl font-mono text-base font-bold text-slate-800">
+    <!-- Slide Counter & Controls -->
+    <div class="flex items-center space-x-3">
+      <!-- Big Counter -->
+      <div class="flex items-center space-x-1 bg-slate-100 border border-slate-200 px-3.5 py-1.5 rounded-xl font-mono text-sm font-bold text-slate-800">
         <span class="text-blue-600" id="currentSlideNum">01</span>
         <span class="text-slate-400 font-normal">/</span>
         <span class="text-slate-600" id="totalSlidesNum">10</span>
       </div>
 
       <!-- Arrow Buttons -->
-      <div class="flex items-center space-x-1.5">
-        <button id="prevBtn" onclick="prevSlide()" title="Forrige slide (Venstre pilt)" class="p-2.5 rounded-xl border border-slate-200 bg-white hover:bg-slate-100 text-slate-700 hover:text-slate-900 transition disabled:opacity-30 disabled:pointer-events-none shadow-2xs">
-          <i data-lucide="arrow-left" class="w-5 h-5"></i>
+      <div class="flex items-center space-x-1">
+        <button id="prevBtn" onclick="prevSlide()" title="Forrige slide (Venstre pilt)" class="p-2 rounded-xl border border-slate-200 bg-white hover:bg-slate-100 text-slate-700 hover:text-slate-900 transition disabled:opacity-30 disabled:pointer-events-none">
+          <i data-lucide="arrow-left" class="w-4 h-4"></i>
         </button>
-        <button id="nextBtn" onclick="nextSlide()" title="Neste slide (Høyre pilt / Space)" class="p-2.5 rounded-xl bg-blue-600 hover:bg-blue-700 text-white transition disabled:opacity-30 disabled:pointer-events-none shadow-sm shadow-blue-500/20">
-          <i data-lucide="arrow-right" class="w-5 h-5"></i>
+        <button id="nextBtn" onclick="nextSlide()" title="Neste slide (Høyre pilt / Space)" class="p-2 rounded-xl bg-blue-600 hover:bg-blue-700 text-white transition disabled:opacity-30 disabled:pointer-events-none shadow-sm shadow-blue-500/20">
+          <i data-lucide="arrow-right" class="w-4 h-4"></i>
         </button>
       </div>
 
       <div class="h-6 w-px bg-slate-200 hidden sm:block"></div>
 
-      <!-- Quick Action Buttons -->
-      <div class="flex items-center space-x-2">
-        <button onclick="toggleGridModal()" title="Oversikt over alle 10 slides (Tast 'G')" class="flex items-center space-x-1.5 px-3 py-2 rounded-xl border border-slate-200 bg-white hover:bg-slate-100 text-xs font-semibold text-slate-700 transition">
-          <i data-lucide="grid" class="w-4 h-4 text-blue-600"></i>
-          <span class="hidden md:inline">Oversikt</span>
-        </button>
-        <button onclick="toggleNotesModal()" title="Komité-talepunkter (Tast 'N')" class="flex items-center space-x-1.5 px-3 py-2 rounded-xl border border-slate-200 bg-white hover:bg-slate-100 text-xs font-semibold text-slate-700 transition">
-          <i data-lucide="file-text" class="w-4 h-4 text-emerald-600"></i>
-          <span class="hidden md:inline">Notater</span>
-        </button>
-      </div>
+      <!-- Modal Toggles -->
+      <button onclick="toggleGridModal()" title="Oversikt over alle slides (Tast 'G')" class="flex items-center space-x-1 px-3 py-1.5 rounded-xl border border-slate-200 bg-white hover:bg-slate-100 text-xs font-semibold text-slate-700 transition">
+        <i data-lucide="grid" class="w-4 h-4 text-blue-600"></i>
+        <span class="hidden lg:inline">Oversikt</span>
+      </button>
+      <button onclick="toggleNotesModal()" title="Komité-talepunkter (Tast 'N')" class="flex items-center space-x-1 px-3 py-1.5 rounded-xl border border-slate-200 bg-white hover:bg-slate-100 text-xs font-semibold text-slate-700 transition">
+        <i data-lucide="file-text" class="w-4 h-4 text-emerald-600"></i>
+        <span class="hidden lg:inline">Notater</span>
+      </button>
     </div>
   </header>
 
-  <!-- MAIN VIEWPORT CONTAINER -->
-  <main class="relative flex-1 overflow-hidden flex flex-col">
+  <!-- MAIN SLIDES CONTAINER (Full Height Flex) -->
+  <main class="relative flex-1 overflow-hidden">
 
     <!-- ========================================================================= -->
     <!-- SLIDE 1: Tittel & Porteføljestrategi -->
     <!-- ========================================================================= -->
-    <section id="slide-1" class="slide-section absolute inset-0 p-8 md:p-12 flex flex-col justify-between overflow-y-auto">
+    <section id="slide-1" class="slide-viewport absolute inset-0 p-6 md:p-8 flex flex-col justify-between overflow-y-auto">
+      <!-- Top Section -->
       <div>
-        <!-- Context Header -->
-        <div class="flex items-center space-x-3 mb-3">
+        <div class="flex items-center space-x-3 mb-2">
           <span class="px-3 py-1 rounded-full bg-blue-50 text-blue-700 border border-blue-200 text-xs font-mono font-bold uppercase tracking-wider">
             Mandat: Investeringskomiteen
           </span>
           <span class="text-sm font-semibold text-slate-500 font-mono">
-            4–5 kjerneaksjer inn i totalportefølje på ~15 selskaper (~25–33 % av risikoen)
+            4–5 kjerneaksjer inn i totalportefølje på ~15 selskaper (~25–33 % av fondets risiko)
           </span>
         </div>
 
-        <h1 class="text-3xl md:text-5xl font-extrabold text-slate-900 tracking-tight leading-tight max-w-5xl">
+        <h1 class="text-3xl lg:text-4xl font-black text-slate-900 tracking-tight leading-tight">
           Strategisk AI- & Teknologi-Allokering
         </h1>
-        <p class="mt-2 text-xl md:text-2xl text-slate-600 font-normal leading-relaxed max-w-4xl">
+        <p class="mt-1 text-base md:text-lg text-slate-600 font-normal leading-relaxed max-w-5xl">
           Strukturell kapitalallokering på tvers av den globale AI-verdikjeden: Fra kontantstrøm-sikret mega-cap programvare til uunngåelige fysiske flaskehalser.
         </p>
+      </div>
 
-        <!-- 4 Large Pillar Cards -->
-        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mt-8">
-          <!-- Pillar 1 -->
-          <div class="white-card white-card-hover p-6 rounded-2xl border-t-4 border-t-blue-600">
-            <div class="flex items-center justify-between mb-4">
-              <span class="text-xs font-mono font-bold text-blue-700 bg-blue-50 px-2 py-0.5 rounded">PILAR 1</span>
-              <div class="w-10 h-10 rounded-xl bg-blue-50 flex items-center justify-center text-blue-600">
-                <i data-lucide="shield-check" class="w-5 h-5"></i>
+      <!-- Middle: 4 Distinct Layers Grid -->
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 my-auto py-2">
+        <!-- Layer 1 -->
+        <div class="insight-card p-5 rounded-2xl border-t-4 border-t-blue-600 flex flex-col justify-between">
+          <div>
+            <div class="flex items-center justify-between mb-3">
+              <span class="text-xs font-mono font-bold text-blue-700 bg-blue-50 px-2 py-0.5 rounded">LAG 1</span>
+              <div class="w-8 h-8 rounded-lg bg-blue-50 text-blue-600 flex items-center justify-center">
+                <i data-lucide="shield-check" class="w-4 h-4"></i>
               </div>
             </div>
-            <h3 class="text-xl font-bold text-slate-900 mb-2">Anker & Kontantstrøm</h3>
-            <p class="text-base text-slate-600 leading-relaxed mb-4">Programvare, global distribusjon og vertikal kontroll med massiv fri kontantstrøm.</p>
-            <div class="pt-3 border-t border-slate-100 flex items-center justify-between text-sm font-semibold">
-              <span class="text-slate-400 font-mono">Kandidater:</span>
-              <span class="text-blue-700 font-bold">Alphabet / Meta</span>
-            </div>
+            <h3 class="text-lg font-bold text-slate-900 mb-1.5">Anker & Kontantstrøm</h3>
+            <p class="text-sm text-slate-600 leading-relaxed">
+              De store tech-gigantene som tjener titalls milliarder dollar i fri kontantstrøm og finansierer den globale AI-utbyggingen.
+            </p>
           </div>
-
-          <!-- Pillar 2 -->
-          <div class="white-card white-card-hover p-6 rounded-2xl border-t-4 border-t-indigo-600">
-            <div class="flex items-center justify-between mb-4">
-              <span class="text-xs font-mono font-bold text-indigo-700 bg-indigo-50 px-2 py-0.5 rounded">PILAR 2</span>
-              <div class="w-10 h-10 rounded-xl bg-indigo-50 flex items-center justify-center text-indigo-600">
-                <i data-lucide="cpu" class="w-5 h-5"></i>
-              </div>
-            </div>
-            <h3 class="text-xl font-bold text-slate-900 mb-2">Nettverkssilisium</h3>
-            <p class="text-base text-slate-600 leading-relaxed mb-4">Custom ASIC og optisk sammenkobling som erstatter rådyre GPU-monopoler.</p>
-            <div class="pt-3 border-t border-slate-100 flex items-center justify-between text-sm font-semibold">
-              <span class="text-slate-400 font-mono">Kandidater:</span>
-              <span class="text-indigo-700 font-bold">Broadcom / Marvell</span>
-            </div>
-          </div>
-
-          <!-- Pillar 3 -->
-          <div class="white-card white-card-hover p-6 rounded-2xl border-t-4 border-t-emerald-600">
-            <div class="flex items-center justify-between mb-4">
-              <span class="text-xs font-mono font-bold text-emerald-700 bg-emerald-50 px-2 py-0.5 rounded">PILAR 3</span>
-              <div class="w-10 h-10 rounded-xl bg-emerald-50 flex items-center justify-center text-emerald-600">
-                <i data-lucide="zap" class="w-5 h-5"></i>
-              </div>
-            </div>
-            <h3 class="text-xl font-bold text-slate-900 mb-2">Fysisk Flaskehals</h3>
-            <p class="text-base text-slate-600 leading-relaxed mb-4">Uunnværlig væskekjøling, kraftdistribusjon og ren fabrikkkapasitet.</p>
-            <div class="pt-3 border-t border-slate-100 flex items-center justify-between text-sm font-semibold">
-              <span class="text-slate-400 font-mono">Kandidater:</span>
-              <span class="text-emerald-700 font-bold">Vertiv / Eaton</span>
-            </div>
-          </div>
-
-          <!-- Pillar 4 -->
-          <div class="white-card white-card-hover p-6 rounded-2xl border-t-4 border-t-amber-500">
-            <div class="flex items-center justify-between mb-4">
-              <span class="text-xs font-mono font-bold text-amber-800 bg-amber-50 px-2 py-0.5 rounded">PILAR 4</span>
-              <div class="w-10 h-10 rounded-xl bg-amber-50 flex items-center justify-center text-amber-600">
-                <i data-lucide="bot" class="w-5 h-5"></i>
-              </div>
-            </div>
-            <h3 class="text-xl font-bold text-slate-900 mb-2">Fysisk AI & Alfa</h3>
-            <p class="text-base text-slate-600 leading-relaxed mb-4">Edge-datasyn under 10W og lokal nordisk opsjon med asymmetrisk oppside.</p>
-            <div class="pt-3 border-t border-slate-100 flex items-center justify-between text-sm font-semibold">
-              <span class="text-slate-400 font-mono">Kandidater:</span>
-              <span class="text-amber-700 font-bold">Ambarella / Napatech</span>
-            </div>
+          <div class="pt-3 mt-3 border-t border-slate-100 flex items-center justify-between text-xs font-semibold">
+            <span class="text-slate-400 font-mono">Kandidater:</span>
+            <span class="text-blue-700 font-bold">Alphabet / Meta</span>
           </div>
         </div>
 
-        <!-- High-Contrast Callout: Why NOT Shipping? -->
-        <div class="mt-8 p-6 rounded-2xl bg-rose-50 border-2 border-rose-200">
-          <div class="flex items-start space-x-4">
-            <div class="p-3 rounded-xl bg-rose-100 text-rose-700 shrink-0">
-              <i data-lucide="alert-octagon" class="w-6 h-6"></i>
+        <!-- Layer 2 -->
+        <div class="insight-card p-5 rounded-2xl border-t-4 border-t-indigo-600 flex flex-col justify-between">
+          <div>
+            <div class="flex items-center justify-between mb-3">
+              <span class="text-xs font-mono font-bold text-indigo-700 bg-indigo-50 px-2 py-0.5 rounded">LAG 2</span>
+              <div class="w-8 h-8 rounded-lg bg-indigo-50 text-indigo-600 flex items-center justify-center">
+                <i data-lucide="cpu" class="w-4 h-4"></i>
+              </div>
             </div>
-            <div>
-              <h4 class="text-lg font-bold text-rose-900 uppercase tracking-wide">
-                Hvorfor AI-Infrastruktur fremfor Shipping?
+            <h3 class="text-lg font-bold text-slate-900 mb-1.5">Nettverk & Spesialbrikker</h3>
+            <p class="text-sm text-slate-600 leading-relaxed">
+              Kontrollerer datamotorveien mellom serverne og designer skreddersydde brikker som bryter Nvidias monopol.
+            </p>
+          </div>
+          <div class="pt-3 mt-3 border-t border-slate-100 flex items-center justify-between text-xs font-semibold">
+            <span class="text-slate-400 font-mono">Kandidater:</span>
+            <span class="text-indigo-700 font-bold">Broadcom / Marvell</span>
+          </div>
+        </div>
+
+        <!-- Layer 3 -->
+        <div class="insight-card p-5 rounded-2xl border-t-4 border-t-emerald-600 flex flex-col justify-between">
+          <div>
+            <div class="flex items-center justify-between mb-3">
+              <span class="text-xs font-mono font-bold text-emerald-700 bg-emerald-50 px-2 py-0.5 rounded">LAG 3</span>
+              <div class="w-8 h-8 rounded-lg bg-emerald-50 text-emerald-600 flex items-center justify-center">
+                <i data-lucide="zap" class="w-4 h-4"></i>
+              </div>
+            </div>
+            <h3 class="text-lg font-bold text-slate-900 mb-1.5">Fysiske Flaskehalser</h3>
+            <p class="text-sm text-slate-600 leading-relaxed">
+              Uunnværlig væskekjøling, krafttransformatorer og avansert fabrikkproduksjon. Uten disse stopper all AI opp.
+            </p>
+          </div>
+          <div class="pt-3 mt-3 border-t border-slate-100 flex items-center justify-between text-xs font-semibold">
+            <span class="text-slate-400 font-mono">Kandidater:</span>
+            <span class="text-emerald-700 font-bold">Vertiv / Eaton / TSMC</span>
+          </div>
+        </div>
+
+        <!-- Layer 4 -->
+        <div class="insight-card p-5 rounded-2xl border-t-4 border-t-amber-500 flex flex-col justify-between">
+          <div>
+            <div class="flex items-center justify-between mb-3">
+              <span class="text-xs font-mono font-bold text-amber-800 bg-amber-50 px-2 py-0.5 rounded">LAG 4</span>
+              <div class="w-8 h-8 rounded-lg bg-amber-50 text-amber-600 flex items-center justify-center">
+                <i data-lucide="bot" class="w-4 h-4"></i>
+              </div>
+            </div>
+            <h3 class="text-lg font-bold text-slate-900 mb-1.5">Fysisk AI & Nordisk Alfa</h3>
+            <p class="text-sm text-slate-600 leading-relaxed">
+              Datasyn for biler og roboter under 10 Watt, pluss høypotente nettverkskort notert direkte på Oslo Børs.
+            </p>
+          </div>
+          <div class="pt-3 mt-3 border-t border-slate-100 flex items-center justify-between text-xs font-semibold">
+            <span class="text-slate-400 font-mono">Kandidater:</span>
+            <span class="text-amber-700 font-bold">Ambarella / Napatech</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Bottom: Full-Width Shipping Warning Eyecatcher -->
+      <div class="p-4 rounded-2xl bg-rose-50 border-2 border-rose-200 shrink-0">
+        <div class="flex items-start space-x-3.5">
+          <div class="p-2 rounded-xl bg-rose-100 text-rose-700 shrink-0 mt-0.5">
+            <i data-lucide="alert-octagon" class="w-5 h-5"></i>
+          </div>
+          <div>
+            <div class="flex items-center space-x-2">
+              <h4 class="text-sm font-bold text-rose-900 uppercase tracking-wide">
+                Hvorfor AI-Infrastruktur over Shipping nå?
               </h4>
-              <p class="text-lg text-rose-950 mt-1 leading-relaxed font-medium">
-                «Shipping er sen-syklisk med topp-inntjening og asymmetrisk nedsiderisiko ved normalisering av ruter. AI-infrastruktur er en flerårig sekulær vekstbølge drevet av strukturelle capex-investeringer.»
-              </p>
+              <span class="text-[11px] font-mono text-rose-700 font-bold bg-rose-100 px-2 py-0.5 rounded">Komité-vurdering</span>
             </div>
-          </div>
-        </div>
-      </div>
-
-      <!-- Slide Footer -->
-      <div class="no-print pt-4 border-t border-slate-200 flex items-center justify-between text-sm text-slate-500 font-medium">
-        <span>Bruk piltaster <kbd class="px-2 py-1 bg-white border border-slate-300 rounded text-xs font-mono font-bold text-slate-800">→</kbd> eller <kbd class="px-2 py-1 bg-white border border-slate-300 rounded text-xs font-mono font-bold text-slate-800">Space</kbd> for å navigere</span>
-        <span class="font-mono text-slate-600">Slide 01 av 10</span>
-      </div>
-    </section>
-
-    <!-- ========================================================================= -->
-    <!-- SLIDE 2: Broadcom vs. Marvell – Kampen om Custom ASIC -->
-    <!-- ========================================================================= -->
-    <section id="slide-2" class="slide-section absolute inset-0 p-8 md:p-12 flex flex-col justify-between overflow-y-auto hidden">
-      <div>
-        <div class="flex items-center space-x-3 mb-3">
-          <span class="px-3 py-1 rounded-full bg-blue-50 text-blue-700 border border-blue-200 text-xs font-mono font-bold uppercase tracking-wider">
-            PILAR 2: Bindeledd & Silisium
-          </span>
-          <span class="text-sm font-semibold text-slate-500 font-mono">Markedsandel: 95 % Kontroll</span>
-        </div>
-
-        <h1 class="text-3xl md:text-5xl font-extrabold text-slate-900 tracking-tight leading-tight">
-          Broadcom (AVGO) vs. Marvell (MRVL) – Kampen om Custom ASIC
-        </h1>
-        <p class="mt-2 text-xl md:text-2xl text-slate-600 font-normal leading-relaxed max-w-5xl">
-          Hyperscalerne vil ut av Nvidias marginfelle. Broadcom og Marvell kontrollerer <strong class="text-blue-700 font-bold">95 %</strong> av markedet for spesialdesignede AI-brikker.
-        </p>
-
-        <!-- 2 Large Side-by-Side Eyecatcher Cards -->
-        <div class="grid grid-cols-1 md:grid-cols-2 gap-8 mt-8">
-          
-          <!-- Broadcom Card -->
-          <div class="white-card p-8 rounded-2xl border-2 border-slate-200 relative flex flex-col justify-between">
-            <div>
-              <div class="flex items-center justify-between mb-4">
-                <div>
-                  <h3 class="text-2xl font-black text-slate-900">Broadcom Inc.</h3>
-                  <span class="text-base font-mono font-bold text-blue-600">NASDAQ: AVGO</span>
-                </div>
-                <div class="text-right">
-                  <div class="text-4xl font-black text-blue-600 font-mono">60%</div>
-                  <div class="text-xs uppercase font-bold tracking-wider text-slate-500">Markedsandel</div>
-                </div>
-              </div>
-
-              <div class="mb-4 inline-block px-3 py-1 bg-blue-50 text-blue-800 rounded-lg text-sm font-mono font-bold border border-blue-200">
-                Forward P/E: ~25–28x
-              </div>
-
-              <ul class="space-y-4 text-lg text-slate-700 mb-6 leading-relaxed">
-                <li class="flex items-start gap-3">
-                  <i data-lucide="check-circle" class="w-6 h-6 text-blue-600 shrink-0 mt-0.5"></i>
-                  <span><strong>Google TPU & Meta MTIA:</strong> Designer og produserer de mest vellykkede Custom ASIC-programmene i verden.</span>
-                </li>
-                <li class="flex items-start gap-3">
-                  <i data-lucide="check-circle" class="w-6 h-6 text-blue-600 shrink-0 mt-0.5"></i>
-                  <span><strong>Ethernet-lederskap:</strong> Tomahawk 5 og Jericho-svitsjer ryggraden i skalerbare AI-klynger.</span>
-                </li>
-                <li class="flex items-start gap-3">
-                  <i data-lucide="check-circle" class="w-6 h-6 text-blue-600 shrink-0 mt-0.5"></i>
-                  <span><strong>VMware Kontantstrøm:</strong> Høy programvare-kontantstrøm med bruttomarginer &gt;60 % gir bunnsolid nedsidesikring.</span>
-                </li>
-              </ul>
-            </div>
-            <div class="p-4 rounded-xl bg-slate-100 text-sm font-semibold text-slate-700">
-              Profil: Det institusjonelle kvalitetsankeret med overlegen prisingsmakt.
-            </div>
-          </div>
-
-          <!-- Marvell Card -->
-          <div class="white-card p-8 rounded-2xl border-2 border-slate-200 relative flex flex-col justify-between">
-            <div>
-              <div class="flex items-center justify-between mb-4">
-                <div>
-                  <h3 class="text-2xl font-black text-slate-900">Marvell Technology</h3>
-                  <span class="text-base font-mono font-bold text-emerald-600">NASDAQ: MRVL</span>
-                </div>
-                <div class="text-right">
-                  <div class="text-4xl font-black text-emerald-600 font-mono">35%</div>
-                  <div class="text-xs uppercase font-bold tracking-wider text-slate-500">Markedsandel</div>
-                </div>
-              </div>
-
-              <div class="mb-4 inline-block px-3 py-1 bg-emerald-50 text-emerald-800 rounded-lg text-sm font-mono font-bold border border-emerald-200">
-                Forward P/E: ~30–35x
-              </div>
-
-              <ul class="space-y-4 text-lg text-slate-700 mb-6 leading-relaxed">
-                <li class="flex items-start gap-3">
-                  <i data-lucide="check-circle" class="w-6 h-6 text-emerald-600 shrink-0 mt-0.5"></i>
-                  <span><strong>AWS & Microsoft Maia:</strong> Nøkkelpartner for Amazon Trainium/Inferentia og Microsofts neste brikkegenerasjon.</span>
-                </li>
-                <li class="flex items-start gap-3">
-                  <i data-lucide="check-circle" class="w-6 h-6 text-emerald-600 shrink-0 mt-0.5"></i>
-                  <span><strong>Optisk Verdensleder:</strong> PAM4 DSP og Co-Packaged Optics (CPO) som frakter data med lysets hastighet mellom servere.</span>
-                </li>
-                <li class="flex items-start gap-3">
-                  <i data-lucide="check-circle" class="w-6 h-6 text-emerald-600 shrink-0 mt-0.5"></i>
-                  <span><strong>Ren Interconnect-vekst:</strong> Høyere veksttakt og renere eksponering mot neste generasjons optiske båndbredde.</span>
-                </li>
-              </ul>
-            </div>
-            <div class="p-4 rounded-xl bg-slate-100 text-sm font-semibold text-slate-700">
-              Profil: Den spissede vekstkandidaten med høyere beta og ren optisk oppside.
-            </div>
-          </div>
-        </div>
-
-        <!-- Bold Verdict Banner -->
-        <div class="mt-8 p-5 rounded-2xl bg-blue-50 border-2 border-blue-200 text-slate-900">
-          <div class="flex items-center space-x-3">
-            <i data-lucide="check" class="w-6 h-6 text-blue-700 shrink-0"></i>
-            <p class="text-lg md:text-xl font-bold text-blue-950">
-              Verdikt for Komiteen: «Broadcom er det bunnsolide kontantstrømankeret; Marvell er den spissede vekstopsjonen på optisk båndbredde.»
+            <p class="text-sm text-rose-950 mt-1 leading-relaxed font-medium">
+              «Shipping (Hunter, Frontline, bilfrakt) har hatt en fantastisk dobling/mangedobling, men er en typisk sen-syklisk bransje på toppen av inntjeningssykelen. Roer krigen og flaskehalsene seg, faller fraktratene bratt. AI-infrastruktur er derimot en flerårig strukturell oppgradering av verdens datanettverk med langsiktig capex-vekst.»
             </p>
           </div>
         </div>
       </div>
+    </section>
 
-      <!-- Slide Footer -->
-      <div class="no-print pt-4 border-t border-slate-200 flex items-center justify-between text-sm text-slate-500 font-medium">
-        <span>Anbefaling: Broadcom (AVGO) tildeles 25 % i kjernemodellen</span>
-        <span class="font-mono text-slate-600">Slide 02 av 10</span>
+    <!-- ========================================================================= -->
+    <!-- SLIDE 2: Broadcom (AVGO) vs. Marvell (MRVL) – Duopolet på spesialbrikker -->
+    <!-- ========================================================================= -->
+    <section id="slide-2" class="slide-viewport absolute inset-0 p-6 md:p-8 flex flex-col justify-between overflow-y-auto hidden">
+      <!-- Top Banner -->
+      <div>
+        <div class="flex items-center space-x-3 mb-1.5">
+          <span class="px-3 py-0.5 rounded-full bg-blue-50 text-blue-700 border border-blue-200 text-xs font-mono font-bold uppercase tracking-wider">
+            LAG 2: Spesialbrikker (Custom ASIC)
+          </span>
+          <span class="text-xs font-semibold text-slate-500 font-mono">95 % Samlet Markedsandel</span>
+        </div>
+        <h1 class="text-2xl lg:text-3xl font-black text-slate-900 tracking-tight">
+          Broadcom (AVGO) vs. Marvell (MRVL) – Duopolet på spesialbrikker
+        </h1>
+        <div class="mt-2 p-3 rounded-xl bg-blue-50 border border-blue-200 text-sm font-semibold text-blue-950">
+          💡 <strong>Pedagogisk forklaring:</strong> <em>«Spesialbrikker er brikker bygget kun for én oppgave. De er mye billigere og raskere i drift for Google og Meta enn å kjøpe rådyre alt-mulig-brikker fra Nvidia.»</em>
+        </div>
+      </div>
+
+      <!-- Middle: 2 Stock Cards with 4-Point Deep-Dive Grid -->
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-5 my-auto py-2">
+        
+        <!-- Card 1: Broadcom (AVGO) -->
+        <div class="insight-card p-5 rounded-2xl border-2 border-blue-200 flex flex-col justify-between">
+          <div>
+            <div class="flex items-center justify-between mb-3 border-b border-slate-100 pb-2">
+              <div>
+                <h3 class="text-xl font-black text-slate-900">Broadcom Inc. <span class="text-sm font-mono text-blue-600">(AVGO)</span></h3>
+                <span class="text-xs font-semibold text-slate-500">Det bunnsolide kontantstrøm-ankeret</span>
+              </div>
+              <div class="text-right">
+                <span class="stat-pill px-2.5 py-1 bg-blue-50 text-blue-700 rounded-lg border border-blue-200">60% Markedsandel</span>
+                <div class="text-xs font-mono text-slate-500 mt-1">Fwd P/E: ~25–28x</div>
+              </div>
+            </div>
+
+            <!-- 4-Point Grid -->
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 text-xs leading-relaxed">
+              <div class="p-2.5 rounded-xl bg-slate-50 border border-slate-200">
+                <strong class="text-blue-700 block mb-0.5">1. Kjernevirksomhet:</strong>
+                Designer TPU for Google og MTIA for Meta. Verdensledende på Ethernet-svitsjer som ruter datatrafikk, pluss VMware programvare.
+              </div>
+              <div class="p-2.5 rounded-xl bg-slate-50 border border-slate-200">
+                <strong class="text-emerald-700 block mb-0.5">2. Prising & Finans:</strong>
+                Forward P/E ~25–28x. Svært lønnsom med over 60 % bruttomargin og massiv årlig fri kontantstrøm.
+              </div>
+              <div class="p-2.5 rounded-xl bg-slate-50 border border-slate-200">
+                <strong class="text-indigo-700 block mb-0.5">3. Vekstmotor:</strong>
+                Hyperscalernes overgang til egne AI-brikker og jevn vekst i repeterende VMware programvarelisenser.
+              </div>
+              <div class="p-2.5 rounded-xl bg-blue-50/60 border border-blue-200">
+                <strong class="text-blue-900 block mb-0.5">4. Hvorfor uunnværlig for AI:</strong>
+                Google Cloud og Meta er fullstendig avhengige av Broadcom for å drifte sine egne AI-modeller kostnadseffektivt.
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Card 2: Marvell (MRVL) -->
+        <div class="insight-card p-5 rounded-2xl border-2 border-emerald-200 flex flex-col justify-between">
+          <div>
+            <div class="flex items-center justify-between mb-3 border-b border-slate-100 pb-2">
+              <div>
+                <h3 class="text-xl font-black text-slate-900">Marvell Technology <span class="text-sm font-mono text-emerald-600">(MRVL)</span></h3>
+                <span class="text-xs font-semibold text-slate-500">Optisk båndbredde & høyere veksttakt</span>
+              </div>
+              <div class="text-right">
+                <span class="stat-pill px-2.5 py-1 bg-emerald-50 text-emerald-700 rounded-lg border border-emerald-200">35% Markedsandel</span>
+                <div class="text-xs font-mono text-slate-500 mt-1">Fwd P/E: ~30–35x</div>
+              </div>
+            </div>
+
+            <!-- 4-Point Grid -->
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 text-xs leading-relaxed">
+              <div class="p-2.5 rounded-xl bg-slate-50 border border-slate-200">
+                <strong class="text-emerald-700 block mb-0.5">1. Kjernevirksomhet:</strong>
+                Spesialbrikker for Amazon (Trainium) og Microsoft (Maia), samt elektro-optiske brikker (PAM4 DSP) som gjør strøm om til lyssignaler i lynfart.
+              </div>
+              <div class="p-2.5 rounded-xl bg-slate-50 border border-slate-200">
+                <strong class="text-amber-700 block mb-0.5">2. Prising & Finans:</strong>
+                Forward P/E ~30–35x. Dyrere enn Broadcom, men vokser fra en lavere base med høyere prosentvis vekstpotensial.
+              </div>
+              <div class="p-2.5 rounded-xl bg-slate-50 border border-slate-200">
+                <strong class="text-indigo-700 block mb-0.5">3. Vekstmotor:</strong>
+                Eksplosjon i optiske tilkoblinger inne i datasentrene når tradisjonelle kobberkabler blir for trege og varme.
+              </div>
+              <div class="p-2.5 rounded-xl bg-emerald-50/60 border border-emerald-200">
+                <strong class="text-emerald-900 block mb-0.5">4. Hvorfor uunnværlig for AI:</strong>
+                Brikkene fra Nvidia og Google kan ikke snakke sammen raskt nok over avstander uten Marvells optiske datamotorvei.
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Bottom Verdict Banner -->
+      <div class="p-3.5 rounded-2xl bg-white border-2 border-slate-200 text-sm font-semibold text-slate-800 flex items-center justify-between shrink-0">
+        <div class="flex items-center space-x-2.5">
+          <i data-lucide="check-circle" class="w-5 h-5 text-blue-600 shrink-0"></i>
+          <span><strong>Komité-dom:</strong> «Broadcom velges for 25 % kjerneallokering som bunnsolid kvalitetsanker; Marvell forblir en spisset kandidat for høyere risiko/vekst.»</span>
+        </div>
+        <span class="hidden md:inline-block text-xs font-mono font-bold text-blue-700 bg-blue-50 px-2.5 py-1 rounded-lg">Allokering: 25 % AVGO</span>
       </div>
     </section>
 
     <!-- ========================================================================= -->
     <!-- SLIDE 3: Ambarella (AMBA) – Fysisk AI og Datasyn -->
     <!-- ========================================================================= -->
-    <section id="slide-3" class="slide-section absolute inset-0 p-8 md:p-12 flex flex-col justify-between overflow-y-auto hidden">
+    <section id="slide-3" class="slide-viewport absolute inset-0 p-6 md:p-8 flex flex-col justify-between overflow-y-auto hidden">
+      <!-- Top Section -->
       <div>
-        <div class="flex items-center space-x-3 mb-3">
-          <span class="px-3 py-1 rounded-full bg-amber-50 text-amber-800 border border-amber-200 text-xs font-mono font-bold uppercase tracking-wider">
-            PILAR 4: Fysisk AI & Edge Autonomi
+        <div class="flex items-center space-x-3 mb-1.5">
+          <span class="px-3 py-0.5 rounded-full bg-amber-50 text-amber-800 border border-amber-200 text-xs font-mono font-bold uppercase tracking-wider">
+            LAG 4: Fysisk AI & Edge Autonomi
           </span>
-          <span class="text-sm font-semibold text-slate-500 font-mono">Ekstrem Energieffektivitet</span>
+          <span class="text-xs font-semibold text-slate-500 font-mono">NASDAQ: AMBA • P/S ~6–8x</span>
         </div>
-
-        <h1 class="text-3xl md:text-5xl font-extrabold text-slate-900 tracking-tight leading-tight">
+        <h1 class="text-2xl lg:text-3xl font-black text-slate-900 tracking-tight">
           Ambarella (AMBA) – Fysisk AI og Datasyn
         </h1>
-        <p class="mt-2 text-xl md:text-2xl text-slate-600 font-normal leading-relaxed max-w-5xl">
-          AI forlater datasenteret. Neste tiårs skifte er maskiner som må sanse, tolke og handle i den fysiske verden i sanntid.
-        </p>
-
-        <!-- 3 Large Feature Columns -->
-        <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mt-8">
-          
-          <div class="white-card p-6 rounded-2xl border-2 border-slate-200">
-            <div class="w-12 h-12 rounded-xl bg-blue-50 text-blue-600 flex items-center justify-center mb-4">
-              <i data-lucide="eye" class="w-6 h-6"></i>
-            </div>
-            <h3 class="text-xl font-bold text-slate-900 mb-2">Hva de gjør</h3>
-            <p class="text-lg text-slate-700 leading-relaxed">
-              Systembrikker (SoC) med proprietær <strong>«CVflow»-arkitektur</strong> som kombinerer avansert bildeprosessering (ISP) med dyp nevral inferens for kamerasyn.
-            </p>
-          </div>
-
-          <div class="white-card p-6 rounded-2xl border-2 border-emerald-300 bg-emerald-50/40">
-            <div class="w-12 h-12 rounded-xl bg-emerald-100 text-emerald-700 flex items-center justify-center mb-4">
-              <i data-lucide="zap" class="w-6 h-6"></i>
-            </div>
-            <h3 class="text-xl font-bold text-emerald-950 mb-2">Det tekniske gjennombruddet</h3>
-            <p class="text-lg text-emerald-950 leading-relaxed font-medium">
-              Datasentre bruker 700W+ væskekjølte GPU-er. Ambarella leverer multi-sensor datasyn (kamera, radar, lidar) på <strong>under 10 Watt</strong>.
-            </p>
-          </div>
-
-          <div class="white-card p-6 rounded-2xl border-2 border-slate-200">
-            <div class="w-12 h-12 rounded-xl bg-amber-50 text-amber-700 flex items-center justify-center mb-4">
-              <i data-lucide="truck" class="w-6 h-6"></i>
-            </div>
-            <h3 class="text-xl font-bold text-slate-900 mb-2">Kommersiell posisjon</h3>
-            <p class="text-lg text-slate-700 leading-relaxed">
-              Uavhengig brikkeleverandør til globale tier-1 billeverandører (ADAS), industriroboter, selvgående trucker og overvåkingsdroner.
-            </p>
-          </div>
-        </div>
-
-        <!-- Metric Stat Eyecatcher Box -->
-        <div class="mt-8 p-6 rounded-2xl bg-white border-2 border-slate-200 shadow-sm flex flex-col md:flex-row items-center justify-between gap-6">
-          <div class="flex items-center space-x-6">
-            <div class="text-center shrink-0">
-              <div class="text-4xl md:text-5xl font-extrabold text-amber-600 font-mono">P/S ~6–8x</div>
-              <div class="text-xs uppercase font-bold tracking-wider text-slate-500 mt-1">Attraktiv Multippel</div>
-            </div>
-            <div class="h-12 w-px bg-slate-200 hidden md:block"></div>
-            <p class="text-lg text-slate-700 leading-relaxed">
-              Priset som en tradisjonell bilbrikke, men gir komiteen en <strong>asymmetrisk opsjon</strong> som uavhengig «hjerne og øyne» for global robotikk uten Tesla-konsentrasjonsrisiko.
-            </p>
-          </div>
-          <span class="px-4 py-2 rounded-xl bg-amber-100 text-amber-900 font-bold text-sm shrink-0">
-            Neste Tiårs Megatrend
-          </span>
+        <div class="mt-2 p-3 rounded-xl bg-amber-50 border border-amber-200 text-sm font-semibold text-amber-950">
+          ⚡ <strong>Kjerneparadigmet:</strong> <em>«Datasenter-AI tenker i skyen med 700W+ væskekjøling. Fysisk AI må sanse og reagere i den virkelige verden på et lite bil- eller dronebatteri under 10 Watt.»</em>
         </div>
       </div>
 
-      <!-- Slide Footer -->
-      <div class="no-print pt-4 border-t border-slate-200 flex items-center justify-between text-sm text-slate-500 font-medium">
-        <span>Tildeling: 15 % allokering som vekstmotoren innen fysisk robotikk</span>
-        <span class="font-mono text-slate-600">Slide 03 av 10</span>
+      <!-- Middle: 4 Distinct Deep-Dive Insight Blocks (Full Viewport Grid) -->
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-4 my-auto py-2">
+        <!-- Block 1 -->
+        <div class="insight-card p-5 rounded-2xl border-l-4 border-l-blue-600 flex flex-col justify-between">
+          <div>
+            <div class="flex items-center space-x-2 mb-2 text-blue-700">
+              <i data-lucide="eye" class="w-5 h-5"></i>
+              <h3 class="text-base font-bold text-slate-900">1. Kjernevirksomhet: Hva de leverer</h3>
+            </div>
+            <p class="text-sm text-slate-600 leading-relaxed">
+              Designer små, ekstremt energieffektive systembrikker (SoC) med proprietær <strong>«CVflow»-arkitektur</strong>. Brikkene kombinerer kamerasensorer, radar og kunstig intelligens for selvkjørende biler, industriroboter og droner.
+            </p>
+          </div>
+          <div class="mt-3 pt-2 border-t border-slate-100 text-xs text-slate-500 font-mono">
+            Merchant silicon til Bosch, Continental og Rivian.
+          </div>
+        </div>
+
+        <!-- Block 2 -->
+        <div class="insight-card p-5 rounded-2xl border-l-4 border-l-amber-500 flex flex-col justify-between">
+          <div>
+            <div class="flex items-center space-x-2 mb-2 text-amber-700">
+              <i data-lucide="dollar-sign" class="w-5 h-5"></i>
+              <h3 class="text-base font-bold text-slate-900">2. Prising & Multipler: Risikoen</h3>
+            </div>
+            <p class="text-sm text-slate-600 leading-relaxed">
+              Prises til <strong>P/S ~6–8x</strong>. Selskapet er i dag nær nullpunktet på bunnlinjen fordi de investerer massivt i neste generasjons 2nm/5nm programvare. De prises som en ordinær bilbrikke – ikke som en AI-vinner.
+            </p>
+          </div>
+          <div class="mt-3 pt-2 border-t border-slate-100 text-xs text-slate-500 font-mono">
+            Asymmetrisk oppside: Reprising ved volumordrer.
+          </div>
+        </div>
+
+        <!-- Block 3 -->
+        <div class="insight-card p-5 rounded-2xl border-l-4 border-l-emerald-600 flex flex-col justify-between">
+          <div>
+            <div class="flex items-center space-x-2 mb-2 text-emerald-700">
+              <i data-lucide="trending-up" class="w-5 h-5"></i>
+              <h3 class="text-base font-bold text-slate-900">3. Vekstmotor: Hvorfor inntektene stiger</h3>
+            </div>
+            <p class="text-sm text-slate-600 leading-relaxed">
+              Masseutrulling av avansert førerstøtte (ADAS) og autonomi i biler. Hver ny bil trenger 6–12 kameraer med sanntids inferens. I tillegg eksploderer markedet for selvgående lagerroboter og droner.
+            </p>
+          </div>
+          <div class="mt-3 pt-2 border-t border-slate-100 text-xs text-slate-500 font-mono">
+            Flerårige design-wins som konverteres til serieproduksjon.
+          </div>
+        </div>
+
+        <!-- Block 4 -->
+        <div class="insight-card p-5 rounded-2xl border-l-4 border-l-rose-500 bg-rose-50/30 flex flex-col justify-between">
+          <div>
+            <div class="flex items-center space-x-2 mb-2 text-rose-700">
+              <i data-lucide="zap" class="w-5 h-5"></i>
+              <h3 class="text-base font-bold text-rose-950">4. Hvorfor uunnværlig (&lt;10 Watt)</h3>
+            </div>
+            <p class="text-sm text-rose-950 leading-relaxed font-medium">
+              En Nvidia-datasenterbrikke trekker 700–1000 Watt og krever væskekjøling. En robot eller drone tømmes for strøm på minutter med slike brikker. Ambarella leverer fullverdig datasyn på <strong>under 10 Watt</strong>!
+            </p>
+          </div>
+          <div class="mt-3 pt-2 border-t border-rose-200 text-xs text-rose-900 font-mono font-bold">
+            Uerstattelig for all batteridrevet robotikk.
+          </div>
+        </div>
+      </div>
+
+      <!-- Bottom Callout -->
+      <div class="p-3.5 rounded-2xl bg-white border-2 border-slate-200 flex items-center justify-between text-sm shrink-0">
+        <div class="flex items-center space-x-2 text-slate-800">
+          <i data-lucide="check" class="w-5 h-5 text-amber-600 shrink-0"></i>
+          <span><strong>Rolle i porteføljen:</strong> 15 % allokering som den fremtidige vekstmotoren innen autonomi og maskinsyn.</span>
+        </div>
+        <span class="stat-pill px-3 py-1 bg-amber-50 text-amber-900 border border-amber-200 rounded-lg">Allokering: 15 % AMBA</span>
       </div>
     </section>
 
     <!-- ========================================================================= -->
-    <!-- SLIDE 4: Nokia (NOKIA) – Det Essensielle og Misforståtte Ankeret -->
+    <!-- SLIDE 4: Nokia (NOKIA) – Det Glemte Infrastruktur-Ankeret -->
     <!-- ========================================================================= -->
-    <section id="slide-4" class="slide-section absolute inset-0 p-8 md:p-12 flex flex-col justify-between overflow-y-auto hidden">
+    <section id="slide-4" class="slide-viewport absolute inset-0 p-6 md:p-8 flex flex-col justify-between overflow-y-auto hidden">
       <div>
-        <div class="flex items-center space-x-3 mb-3">
-          <span class="px-3 py-1 rounded-full bg-emerald-50 text-emerald-800 border border-emerald-200 text-xs font-mono font-bold uppercase tracking-wider">
-            DEFENSIVT ANKER & ASYMMETRISK OPSJON
+        <div class="flex items-center space-x-3 mb-1.5">
+          <span class="px-3 py-0.5 rounded-full bg-emerald-50 text-emerald-800 border border-emerald-200 text-xs font-mono font-bold uppercase tracking-wider">
+            DEFENSIVT ANKER & OPSJON
           </span>
-          <span class="text-sm font-semibold text-slate-500 font-mono">Underpriset Infrastruktur</span>
+          <span class="text-xs font-semibold text-slate-500 font-mono">P/E ~11–13x • Netto Gjeldfri</span>
         </div>
-
-        <h1 class="text-3xl md:text-5xl font-extrabold text-slate-900 tracking-tight leading-tight">
-          Nokia (NOKIA) – Det Essensielle og Misforståtte Ankeret
+        <h1 class="text-2xl lg:text-3xl font-black text-slate-900 tracking-tight">
+          Nokia (NOKIA) – Det Glemte Infrastruktur-Ankeret
         </h1>
-        <p class="mt-2 text-xl md:text-2xl text-slate-600 font-normal leading-relaxed max-w-5xl">
-          Ikke et tregt mobilselskap, men en av tre globale leverandører av kritisk telekom- og optisk datainfrastruktur.
-        </p>
-
-        <!-- 2 Core Areas Side-by-Side -->
-        <div class="grid grid-cols-1 md:grid-cols-2 gap-8 mt-8">
-          
-          <div class="white-card p-8 rounded-2xl border-2 border-slate-200">
-            <div class="flex items-center space-x-3 mb-3">
-              <div class="p-2.5 rounded-xl bg-blue-100 text-blue-700">
-                <i data-lucide="radio" class="w-6 h-6"></i>
-              </div>
-              <h3 class="text-2xl font-bold text-slate-900">AI-RAN med Nvidia</h3>
-            </div>
-            <p class="text-lg text-slate-700 leading-relaxed">
-              Mobilmaster kjører på GPU-arkitektur. Når teletrafikken er lav (f.eks. nattestid), leies beregningskraften ut til lokal Edge-AI, og gjør basestasjoner til distribuerte mikro-datasentre.
-            </p>
-          </div>
-
-          <div class="white-card p-8 rounded-2xl border-2 border-slate-200">
-            <div class="flex items-center space-x-3 mb-3">
-              <div class="p-2.5 rounded-xl bg-emerald-100 text-emerald-700">
-                <i data-lucide="server" class="w-6 h-6"></i>
-              </div>
-              <h3 class="text-2xl font-bold text-slate-900">Datasenter-OS & Ruting</h3>
-            </div>
-            <p class="text-lg text-slate-700 leading-relaxed">
-              Leverer <strong>FP5 optisk ruting</strong> (800G) og det moderne Linux-baserte <strong>SR Linux nettverks-OS</strong> til hyperscale skyleverandører som oppgraderer sine serverparker.
-            </p>
-          </div>
-        </div>
-
-        <!-- 3 Financial Eyecatcher Pills -->
-        <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mt-8">
-          <div class="p-5 rounded-2xl bg-white border-2 border-slate-200 text-center shadow-2xs">
-            <div class="text-3xl md:text-4xl font-black text-emerald-600 font-mono">11–13x</div>
-            <div class="text-xs uppercase font-bold text-slate-500 tracking-wider mt-1">Forward P/E (Deep Value)</div>
-          </div>
-
-          <div class="p-5 rounded-2xl bg-white border-2 border-slate-200 text-center shadow-2xs">
-            <div class="text-3xl md:text-4xl font-black text-blue-600 font-mono">0 NOK</div>
-            <div class="text-xs uppercase font-bold text-slate-500 tracking-wider mt-1">Netto Rentebærende Gjeld (Ren Balanse)</div>
-          </div>
-
-          <div class="p-5 rounded-2xl bg-white border-2 border-slate-200 text-center shadow-2xs">
-            <div class="text-3xl md:text-4xl font-black text-indigo-600 font-mono">Solid</div>
-            <div class="text-xs uppercase font-bold text-slate-500 tracking-wider mt-1">Løpende Direkteavkastning</div>
-          </div>
-        </div>
-
-        <!-- Verdict Banner -->
-        <div class="mt-8 p-5 rounded-2xl bg-emerald-50 border-2 border-emerald-200">
-          <div class="flex items-center space-x-3">
-            <i data-lucide="shield" class="w-6 h-6 text-emerald-700 shrink-0"></i>
-            <p class="text-lg md:text-xl font-bold text-emerald-950">
-              Verdikt for Komiteen: «Defensivt sikkerhetsnett med gratis strukturell oppsideopsjon på AI-infrastruktur.»
-            </p>
-          </div>
+        <div class="mt-2 p-3 rounded-xl bg-emerald-50 border border-emerald-200 text-sm font-semibold text-emerald-950">
+          📡 <strong>Hovedbudskap:</strong> <em>«Nokia er ikke en treg mobiltelefon fra 2005. De eier og bygger datanettet som all AI-trafikk må fraktes over.»</em>
         </div>
       </div>
 
-      <!-- Slide Footer -->
-      <div class="no-print pt-4 border-t border-slate-200 flex items-center justify-between text-sm text-slate-500 font-medium">
-        <span>Rolle: Gir komiteen nattesøvn og fullstendig nedsidesikring</span>
-        <span class="font-mono text-slate-600">Slide 04 av 10</span>
+      <!-- Middle: 4 Deep-Dive Insight Blocks -->
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-4 my-auto py-2">
+        <div class="insight-card p-5 rounded-2xl border-l-4 border-l-blue-600 flex flex-col justify-between">
+          <div>
+            <h3 class="text-base font-bold text-slate-900 mb-1 flex items-center gap-2">
+              <i data-lucide="radio" class="w-4 h-4 text-blue-600"></i> 1. Kjernevirksomhet: Hva de leverer
+            </h3>
+            <p class="text-sm text-slate-600 leading-relaxed">
+              Bygger 5G/6G-mobilnett, optiske datamotorveier (FP5-silisium) og det moderne nettverksoperativsystemet <strong>SR Linux</strong> som skyleverandører ruller ut i sine datasentre.
+            </p>
+          </div>
+          <div class="mt-2 pt-2 border-t border-slate-100 text-xs text-slate-500 font-mono">Kritisk telekom- og datasenterinfrastruktur.</div>
+        </div>
+
+        <div class="insight-card p-5 rounded-2xl border-l-4 border-l-emerald-600 flex flex-col justify-between">
+          <div>
+            <h3 class="text-base font-bold text-slate-900 mb-1 flex items-center gap-2">
+              <i data-lucide="shield" class="w-4 h-4 text-emerald-600"></i> 2. Prising & Balanse: Bunnbeskyttelse
+            </h3>
+            <p class="text-sm text-slate-600 leading-relaxed">
+              Handles til kun <strong>Forward P/E ~11–13x</strong>. Har <strong>0 NOK i netto rentebærende gjeld</strong> (betydelig nettokontantposisjon) og betaler solid løpende utbytte.
+            </p>
+          </div>
+          <div class="mt-2 pt-2 border-t border-slate-100 text-xs text-slate-500 font-mono">Ekstrem nedsidesikring i urolige markeder.</div>
+        </div>
+
+        <div class="insight-card p-5 rounded-2xl border-l-4 border-l-indigo-600 flex flex-col justify-between">
+          <div>
+            <h3 class="text-base font-bold text-slate-900 mb-1 flex items-center gap-2">
+              <i data-lucide="cpu" class="w-4 h-4 text-indigo-600"></i> 3. Vekstmotor: AI-alliansen med Nvidia
+            </h3>
+            <p class="text-sm text-slate-600 leading-relaxed">
+              <strong>AI-RAN:</strong> Mobilmaster står ofte ubrukte om natten. Sammen med Nvidia oppgraderes mastene til å kjøre på GPU-er. Når ingen ringer, leies mastens datakraft ut til lokal AI-prosessering.
+            </p>
+          </div>
+          <div class="mt-2 pt-2 border-t border-slate-100 text-xs text-slate-500 font-mono">Gjør mobilmaster om til lokale mini-datasentre.</div>
+        </div>
+
+        <div class="insight-card p-5 rounded-2xl border-l-4 border-l-emerald-600 bg-emerald-50/20 flex flex-col justify-between">
+          <div>
+            <h3 class="text-base font-bold text-emerald-950 mb-1 flex items-center gap-2">
+              <i data-lucide="check" class="w-4 h-4 text-emerald-700"></i> 4. Hvorfor uunnværlig for AI
+            </h3>
+            <p class="text-sm text-emerald-950 leading-relaxed font-medium">
+              Telenettet må moderniseres for å tåle datamengdene fra millioner av selvkjørende biler og smarte sensorer. Nokia gir komiteen en gratis asymmetrisk oppsideopsjon på denne trenden.
+            </p>
+          </div>
+          <div class="mt-2 pt-2 border-t border-emerald-200 text-xs text-emerald-900 font-mono font-bold">Defensiv stabilitet med strukturell oppside.</div>
+        </div>
+      </div>
+
+      <!-- Bottom Verdict Banner -->
+      <div class="p-3.5 rounded-2xl bg-white border-2 border-slate-200 flex items-center justify-between text-sm shrink-0">
+        <span class="text-slate-800 font-semibold">«Defensivt sikkerhetsnett med gratis strukturell oppsideopsjon på AI-infrastruktur.»</span>
+        <span class="stat-pill px-3 py-1 bg-emerald-50 text-emerald-800 border border-emerald-200 rounded-lg">Defensiv Stabilitet</span>
       </div>
     </section>
 
     <!-- ========================================================================= -->
     <!-- SLIDE 5: Alphabet (GOOGL) vs. Meta Platforms (META) -->
     <!-- ========================================================================= -->
-    <section id="slide-5" class="slide-section absolute inset-0 p-8 md:p-12 flex flex-col justify-between overflow-y-auto hidden">
+    <section id="slide-5" class="slide-viewport absolute inset-0 p-6 md:p-8 flex flex-col justify-between overflow-y-auto hidden">
       <div>
-        <div class="flex items-center space-x-3 mb-3">
-          <span class="px-3 py-1 rounded-full bg-blue-50 text-blue-700 border border-blue-200 text-xs font-mono font-bold uppercase tracking-wider">
-            PILAR 1: Mega-Cap Kontantstrøm-anker
+        <div class="flex items-center space-x-3 mb-1.5">
+          <span class="px-3 py-0.5 rounded-full bg-blue-50 text-blue-700 border border-blue-200 text-xs font-mono font-bold uppercase tracking-wider">
+            LAG 1: Mega-Cap Kontantstrøm-anker
           </span>
-          <span class="text-sm font-semibold text-slate-500 font-mono">Vertikal Kontroll vs. Annonsemonetisering</span>
+          <span class="text-xs font-semibold text-slate-500 font-mono">Verdsettelse vs. Umiddelbar ROIC</span>
         </div>
-
-        <h1 class="text-3xl md:text-5xl font-extrabold text-slate-900 tracking-tight leading-tight">
+        <h1 class="text-2xl lg:text-3xl font-black text-slate-900 tracking-tight">
           Alphabet (GOOGL) vs. Meta Platforms (META)
         </h1>
-        <p class="mt-2 text-xl md:text-2xl text-slate-600 font-normal leading-relaxed max-w-5xl">
-          Valget mellom vertikal maskinvareuavhengighet og kortsiktig annonsemonetisering.
-        </p>
+        <div class="mt-2 p-3 rounded-xl bg-blue-50 border border-blue-200 text-sm font-semibold text-blue-950">
+          🏛️ <strong>Komiteens valg:</strong> <em>«Skal vi velge Alphabet for lavest verdsettelse og hardware-uavhengighet, eller Meta for ren kortsiktig annonsemonetisering?»</em>
+        </div>
+      </div>
 
-        <!-- Clean, Large High-Contrast Comparison Matrix -->
-        <div class="mt-6 white-card rounded-2xl overflow-hidden border-2 border-slate-200">
-          <table class="w-full text-left border-collapse">
-            <thead>
-              <tr class="bg-slate-100 text-slate-800 font-mono text-sm border-b-2 border-slate-200">
-                <th class="p-4 font-bold uppercase">Nøkkelparameter</th>
-                <th class="p-4 font-bold text-blue-700 bg-blue-50/80 border-x-2 border-slate-200 text-base">Alphabet Inc. (GOOGL)</th>
-                <th class="p-4 font-bold text-indigo-700 text-base">Meta Platforms (META)</th>
-              </tr>
-            </thead>
-            <tbody class="divide-y divide-slate-200 text-base md:text-lg">
-              <tr>
-                <td class="p-4 font-bold text-slate-900">Primær AI-arkitektur</td>
-                <td class="p-4 bg-blue-50/30 border-x-2 border-slate-200 font-semibold text-blue-950">
-                  <strong>Full vertikal kontroll:</strong> Egenutviklet TPU v6, Google Cloud og Gemini-modeller. Null avhengighet av Nvidia.
-                </td>
-                <td class="p-4 text-slate-800">
-                  <strong>Åpen kildekode:</strong> Llama-økosystemet bygget på massive innkjøp av Nvidia GPU-klynger.
-                </td>
-              </tr>
-              <tr>
-                <td class="p-4 font-bold text-slate-900">Monetisering & Driver</td>
-                <td class="p-4 bg-blue-50/30 border-x-2 border-slate-200 text-slate-800">
-                  Skytjenester (28% vekst) og strukturelt forsvar av søkemonopol og YouTube.
-                </td>
-                <td class="p-4 font-semibold text-emerald-950">
-                  <strong>Direkte avkastning her og nå:</strong> 20%+ annonseprisvekst via Advantage+ AI og Ray-Ban smartbriller.
-                </td>
-              </tr>
-              <tr>
-                <td class="p-4 font-bold text-slate-900">Verdsettelse (Multipler)</td>
-                <td class="p-4 bg-blue-50/30 border-x-2 border-slate-200 font-mono font-bold text-blue-700 text-xl">
-                  Forward P/E ~19–22x <span class="text-sm font-sans font-normal text-slate-600">(Billigst blant megacaps)</span>
-                </td>
-                <td class="p-4 font-mono font-bold text-indigo-700 text-xl">
-                  Forward P/E ~23–26x <span class="text-sm font-sans font-normal text-slate-600">(Moderat premie)</span>
-                </td>
-              </tr>
-            </tbody>
-          </table>
+      <!-- Middle: 2 Comparative Stock Cards -->
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-5 my-auto py-2">
+        <!-- GOOGL Card -->
+        <div class="insight-card p-5 rounded-2xl border-2 border-blue-200 flex flex-col justify-between">
+          <div>
+            <div class="flex items-center justify-between mb-3 border-b border-slate-100 pb-2">
+              <div>
+                <h3 class="text-xl font-black text-slate-900">Alphabet Inc. <span class="text-sm font-mono text-blue-600">(GOOGL)</span></h3>
+                <span class="text-xs font-semibold text-blue-700">Verneankeret med TPU-kontroll</span>
+              </div>
+              <span class="stat-pill px-2.5 py-1 bg-blue-50 text-blue-700 rounded-lg border border-blue-200">Fwd P/E ~19–22x</span>
+            </div>
+
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-2.5 text-xs leading-relaxed">
+              <div class="p-2 rounded-xl bg-slate-50 border border-slate-200">
+                <strong class="text-blue-700 block mb-0.5">1. Kjernevirksomhet:</strong>
+                Søk, YouTube, Google Cloud, Android og de ledende Gemini AI-modellene.
+              </div>
+              <div class="p-2 rounded-xl bg-slate-50 border border-slate-200">
+                <strong class="text-emerald-700 block mb-0.5">2. Prising & Finans:</strong>
+                Billigst blant alle tech-gigantene (P/E ~20). Vokser 15–20 % på bunnlinjen med massiv kontantbeholdning.
+              </div>
+              <div class="p-2 rounded-xl bg-slate-50 border border-slate-200">
+                <strong class="text-indigo-700 block mb-0.5">3. Vekstmotor:</strong>
+                Google Cloud akselererer med over 28 % årlig vekst og forbedrede driftsmarginer.
+              </div>
+              <div class="p-2 rounded-xl bg-blue-50/60 border border-blue-200">
+                <strong class="text-blue-900 block mb-0.5">4. Den hemmelige fordelen (TPU):</strong>
+                Eier hele verdikjeden selv. Med TPU-brikker slipper de å betale Nvidias profitt, noe som gir laveste kostnad per AI-svar.
+              </div>
+            </div>
+          </div>
         </div>
 
-        <!-- 2 Clear Decision Guide Boxes -->
-        <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mt-6">
-          <div class="p-6 rounded-2xl bg-blue-50 border-2 border-blue-200">
-            <h4 class="text-lg font-bold text-blue-900 mb-1 flex items-center gap-2">
-              <i data-lucide="check" class="w-5 h-5 text-blue-700"></i> Velg Alphabet:
-            </h4>
-            <p class="text-base text-blue-950 leading-relaxed font-medium">
-              For konservativ verdsettelse, ekstrem kontantstrøm og strukturelt lavere inferenskostnader via egne TPU-er.
-            </p>
-          </div>
+        <!-- META Card -->
+        <div class="insight-card p-5 rounded-2xl border-2 border-indigo-200 flex flex-col justify-between">
+          <div>
+            <div class="flex items-center justify-between mb-3 border-b border-slate-100 pb-2">
+              <div>
+                <h3 class="text-xl font-black text-slate-900">Meta Platforms <span class="text-sm font-mono text-indigo-600">(META)</span></h3>
+                <span class="text-xs font-semibold text-indigo-700">Momentum & Åpen Kildekode</span>
+              </div>
+              <span class="stat-pill px-2.5 py-1 bg-indigo-50 text-indigo-700 rounded-lg border border-indigo-200">Fwd P/E ~23–26x</span>
+            </div>
 
-          <div class="p-6 rounded-2xl bg-indigo-50 border-2 border-indigo-200">
-            <h4 class="text-lg font-bold text-indigo-900 mb-1 flex items-center gap-2">
-              <i data-lucide="check" class="w-5 h-5 text-indigo-700"></i> Velg Meta:
-            </h4>
-            <p class="text-base text-indigo-950 leading-relaxed font-medium">
-              For umiddelbar dokumentert avkastning på investert kapital (ROIC) og direkte annonsemonetisering her og nå.
-            </p>
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-2.5 text-xs leading-relaxed">
+              <div class="p-2 rounded-xl bg-slate-50 border border-slate-200">
+                <strong class="text-indigo-700 block mb-0.5">1. Kjernevirksomhet:</strong>
+                Facebook, Instagram, WhatsApp, Ray-Ban smarte briller og Llama AI-modeller.
+              </div>
+              <div class="p-2 rounded-xl bg-slate-50 border border-slate-200">
+                <strong class="text-emerald-700 block mb-0.5">2. Prising & Finans:</strong>
+                Forward P/E ~23–26x. Høy lønnsomhet med dokumentert umiddelbar avkastning på AI-capex.
+              </div>
+              <div class="p-2 rounded-xl bg-slate-50 border border-slate-200">
+                <strong class="text-blue-700 block mb-0.5">3. Vekstmotor (Advantage+):</strong>
+                AI automatiserer og optimaliserer annonser direkte. Annonsørene tjener mer, og Meta tar høyere betalt per visning.
+              </div>
+              <div class="p-2 rounded-xl bg-indigo-50/60 border border-indigo-200">
+                <strong class="text-indigo-900 block mb-0.5">4. Den åpne strategien (Llama):</strong>
+                Llama deles åpent for å ødelegge OpenAIs forretningsmodell og sikre at hele verdens utviklere bygger på Metas teknologi.
+              </div>
+            </div>
           </div>
         </div>
       </div>
 
-      <!-- Slide Footer -->
-      <div class="no-print pt-4 border-t border-slate-200 flex items-center justify-between text-sm text-slate-500 font-medium">
-        <span>Komité-anbefaling: Alphabet (GOOGL) velges som 30 % anker for multippelbeskyttelse</span>
-        <span class="font-mono text-slate-600">Slide 05 av 10</span>
+      <!-- Bottom Recommendation Guide -->
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-3 shrink-0 text-xs font-semibold">
+        <div class="p-2.5 rounded-xl bg-blue-50 border border-blue-200 text-blue-950 flex items-center gap-2">
+          <i data-lucide="check" class="w-4 h-4 text-blue-700 shrink-0"></i>
+          <span><strong>Velg Alphabet (Anbefalt 30 %):</strong> For lavest multippelrisiko og fullstendig maskinvareuavhengighet.</span>
+        </div>
+        <div class="p-2.5 rounded-xl bg-indigo-50 border border-indigo-200 text-indigo-950 flex items-center gap-2">
+          <i data-lucide="check" class="w-4 h-4 text-indigo-700 shrink-0"></i>
+          <span><strong>Velg Meta:</strong> For ren kortsiktig inntjeningsfest og direkte monetisering i annonsemarkedet.</span>
+        </div>
       </div>
     </section>
 
     <!-- ========================================================================= -->
-    <!-- SLIDE 6: Fysiske Flaskehalser – Vertiv (VRT) & Eaton (ETN) -->
+    <!-- SLIDE 6: Vertiv (VRT) & Eaton (ETN) – Kraften og Kjølingen -->
     <!-- ========================================================================= -->
-    <section id="slide-6" class="slide-section absolute inset-0 p-8 md:p-12 flex flex-col justify-between overflow-y-auto hidden">
+    <section id="slide-6" class="slide-viewport absolute inset-0 p-6 md:p-8 flex flex-col justify-between overflow-y-auto hidden">
       <div>
-        <div class="flex items-center space-x-3 mb-3">
-          <span class="px-3 py-1 rounded-full bg-emerald-50 text-emerald-800 border border-emerald-200 text-xs font-mono font-bold uppercase tracking-wider">
-            PILAR 3: Den Fysiske Virkeligheten
+        <div class="flex items-center space-x-3 mb-1.5">
+          <span class="px-3 py-0.5 rounded-full bg-emerald-50 text-emerald-800 border border-emerald-200 text-xs font-mono font-bold uppercase tracking-wider">
+            LAG 3: Fysiske Flaskehalser
           </span>
-          <span class="text-sm font-semibold text-slate-500 font-mono">Kjøling & Kraft</span>
+          <span class="text-xs font-semibold text-slate-500 font-mono">Fysikkens Lover: Væskekjøling & Kraft</span>
         </div>
-
-        <h1 class="text-3xl md:text-5xl font-extrabold text-slate-900 tracking-tight leading-tight">
-          Fysiske Flaskehalser – Vertiv (VRT) & Eaton (ETN)
+        <h1 class="text-2xl lg:text-3xl font-black text-slate-900 tracking-tight">
+          Vertiv (VRT) & Eaton (ETN) – Kraften og Kjølingen som kreves
         </h1>
-        <p class="mt-2 text-xl md:text-2xl text-slate-600 font-normal leading-relaxed max-w-5xl">
-          Den største barrieren for AI i dag er ikke algoritmer, men <strong class="text-emerald-700 font-bold">strøm</strong> og <strong class="text-blue-700 font-bold">kjøling</strong>.
-        </p>
-
-        <!-- 2 Large Profile Cards -->
-        <div class="grid grid-cols-1 md:grid-cols-2 gap-8 mt-8">
-          
-          <!-- Vertiv Card -->
-          <div class="white-card p-8 rounded-2xl border-2 border-slate-200 flex flex-col justify-between">
-            <div>
-              <div class="flex items-center justify-between mb-4">
-                <div>
-                  <h3 class="text-2xl font-black text-slate-900">Vertiv Holdings</h3>
-                  <span class="text-base font-mono font-bold text-blue-600">NYSE: VRT</span>
-                </div>
-                <div class="px-3 py-1.5 rounded-xl bg-blue-50 text-blue-800 border border-blue-200 font-mono font-bold text-base">
-                  P/E ~32–36x
-                </div>
-              </div>
-
-              <div class="text-sm font-bold uppercase tracking-wider text-blue-700 mb-3">
-                Termisk Styring & Væskekjøling
-              </div>
-
-              <p class="text-lg text-slate-700 leading-relaxed mb-4">
-                <strong>Rolle:</strong> Neste generasjons AI-racks (&gt;100 kW) smelter med luftkjøling. Direkte væskekjøling fra Vertiv er en uunnværlig fysisk forutsetning for å drifte Nvidias Blackwell og hyperscalernes superklynger.
-              </p>
-            </div>
-            <div class="p-4 rounded-xl bg-slate-100 text-base font-semibold text-slate-800">
-              Momentum & direkte korrelasjon med hver utrullede server.
-            </div>
-          </div>
-
-          <!-- Eaton Card -->
-          <div class="white-card p-8 rounded-2xl border-2 border-slate-200 flex flex-col justify-between">
-            <div>
-              <div class="flex items-center justify-between mb-4">
-                <div>
-                  <h3 class="text-2xl font-black text-slate-900">Eaton Corp</h3>
-                  <span class="text-base font-mono font-bold text-emerald-600">NYSE: ETN</span>
-                </div>
-                <div class="px-3 py-1.5 rounded-xl bg-emerald-50 text-emerald-800 border border-emerald-200 font-mono font-bold text-base">
-                  P/E ~27–30x
-                </div>
-              </div>
-
-              <div class="text-sm font-bold uppercase tracking-wider text-emerald-700 mb-3">
-                Kraftdistribusjon & Transformatorer
-              </div>
-
-              <p class="text-lg text-slate-700 leading-relaxed mb-4">
-                <strong>Rolle:</strong> Datasentre sluker massive mengder strøm og krever komplekse tilknytninger til høyspentnettet, spenningsvern og nødstrøm (UPS). Eaton har flerårige ordrebøker og massiv visibilitet.
-              </p>
-            </div>
-            <div class="p-4 rounded-xl bg-slate-100 text-base font-semibold text-slate-800">
-              Flerårige ordrebøker, lav teknologirisiko og stabilt utbytte.
-            </div>
-          </div>
-        </div>
-
-        <!-- Big Stat Eyecatcher -->
-        <div class="mt-8 p-6 rounded-2xl bg-white border-2 border-slate-200 shadow-sm flex items-center justify-between">
-          <div class="flex items-center space-x-6">
-            <div class="text-4xl md:text-5xl font-extrabold text-blue-600 font-mono">&gt;100 kW</div>
-            <div>
-              <h4 class="text-lg font-bold text-slate-900">Effekt per Server-Rack</h4>
-              <p class="text-base text-slate-600">Gjør tradisjonelle kjølevifter foreldet over natten – væskekjøling er eneste løsning.</p>
-            </div>
-          </div>
-          <span class="hidden md:inline-block px-4 py-2 bg-slate-100 text-slate-700 rounded-xl text-sm font-bold">
-            Fysisk Lov
-          </span>
+        <div class="mt-2 p-3 rounded-xl bg-emerald-50 border border-emerald-200 text-sm font-semibold text-emerald-950">
+          ❄️ <strong>Fysisk forutsetning:</strong> <em>«Moderne AI-servere smelter uten væskekjøling og krever mer strøm enn små byer. Dette er fysikkens lover – uavhengig av hvem som vinner modellkrigen.»</em>
         </div>
       </div>
 
-      <!-- Slide Footer -->
-      <div class="no-print pt-4 border-t border-slate-200 flex items-center justify-between text-sm text-slate-500 font-medium">
-        <span>Anbefaling: Vertiv (VRT) tildeles 20 % som ren væskekjølings-vinner</span>
-        <span class="font-mono text-slate-600">Slide 06 av 10</span>
+      <!-- Middle: 2 Detailed Cards -->
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-5 my-auto py-2">
+        <!-- Vertiv Card -->
+        <div class="insight-card p-5 rounded-2xl border-2 border-blue-200 flex flex-col justify-between">
+          <div>
+            <div class="flex items-center justify-between mb-3 border-b border-slate-100 pb-2">
+              <div>
+                <h3 class="text-xl font-black text-slate-900">Vertiv Holdings <span class="text-sm font-mono text-blue-600">(VRT)</span></h3>
+                <span class="text-xs font-semibold text-blue-700">Verdensledende på Termisk Styring & Væskekjøling</span>
+              </div>
+              <span class="stat-pill px-2.5 py-1 bg-blue-50 text-blue-700 rounded-lg border border-blue-200">Fwd P/E ~32–36x</span>
+            </div>
+
+            <div class="space-y-2 text-xs leading-relaxed">
+              <div class="p-2.5 rounded-xl bg-slate-50 border border-slate-200">
+                <strong class="text-blue-700">Kjernevirksomhet:</strong> Kjølesystemer, varmevekslere og direkte-til-brikke væskekjøling for datasentre.
+              </div>
+              <div class="p-2.5 rounded-xl bg-rose-50 border border-rose-200 text-rose-950 font-medium">
+                <strong class="text-rose-800">Flaskehalsen (>100 kW per rack):</strong> Nvidias nyeste Blackwell-racks trekker over 100 kW per skap. Luftvifter klarer ikke lenger å fjerne varmen. Uten Vertivs rør og væsker kan ikke serverne skrus på!
+              </div>
+              <div class="p-2.5 rounded-xl bg-slate-50 border border-slate-200">
+                <strong class="text-emerald-700">Vekst & Prising:</strong> Prises på vekstmultipler (P/E ~34), men har direkte momentum koblet til hver eneste nye GPU som forlater fabrikken.
+              </div>
+            </div>
+          </div>
+          <div class="mt-3 pt-2 border-t border-slate-100 text-xs font-mono font-bold text-blue-700">
+            Komité-rolle: Ren momentum-vinner (Anbefalt: 20 %)
+          </div>
+        </div>
+
+        <!-- Eaton Card -->
+        <div class="insight-card p-5 rounded-2xl border-2 border-emerald-200 flex flex-col justify-between">
+          <div>
+            <div class="flex items-center justify-between mb-3 border-b border-slate-100 pb-2">
+              <div>
+                <h3 class="text-xl font-black text-slate-900">Eaton Corporation <span class="text-sm font-mono text-emerald-600">(ETN)</span></h3>
+                <span class="text-xs font-semibold text-emerald-700">Kraftdistribusjon, Transformatorer & Nødstrøm</span>
+              </div>
+              <span class="stat-pill px-2.5 py-1 bg-emerald-50 text-emerald-700 rounded-lg border border-emerald-200">Fwd P/E ~27–30x</span>
+            </div>
+
+            <div class="space-y-2 text-xs leading-relaxed">
+              <div class="p-2.5 rounded-xl bg-slate-50 border border-slate-200">
+                <strong class="text-emerald-700">Kjernevirksomhet:</strong> Høyspenttransformatorer, sikringsskap, strømstyring og nødstrøm (UPS) til industri og datasentre.
+              </div>
+              <div class="p-2.5 rounded-xl bg-amber-50 border border-amber-200 text-amber-950 font-medium">
+                <strong class="text-amber-800">Flaskehalsen (3–4 års leveringstid):</strong> Det tar opptil 3–4 år å få levert en industriell transformator for å koble et datasenter til strømnettet. Eaton sitter på historisk lange ordrebøker.
+              </div>
+              <div class="p-2.5 rounded-xl bg-slate-50 border border-slate-200">
+                <strong class="text-blue-700">Vekst & Prising:</strong> Tradisjonell industriell profil med jevnt utbytte, forsterket av en massiv sekulær vekstbølge fra elektrifisering og AI.
+              </div>
+            </div>
+          </div>
+          <div class="mt-3 pt-2 border-t border-slate-100 text-xs font-mono font-bold text-emerald-700">
+            Komité-rolle: Trygg industriell kraftvekst
+          </div>
+        </div>
+      </div>
+
+      <!-- Bottom Banner -->
+      <div class="p-3.5 rounded-2xl bg-white border-2 border-slate-200 flex items-center justify-between text-sm shrink-0">
+        <span class="text-slate-800 font-semibold">«Uansett hvem som vinner AI-krigen, må serverne ha strøm fra Eaton og kjøling fra Vertiv.»</span>
+        <span class="stat-pill px-3 py-1 bg-blue-50 text-blue-700 border border-blue-200 rounded-lg">Allokering: 20 % VRT</span>
       </div>
     </section>
 
     <!-- ========================================================================= -->
-    <!-- SLIDE 7: TSMC (TSM) – Blir de utkonkurrert av USA? -->
+    <!-- SLIDE 7: TSMC (TSM) – Fabrikken hele verden er avhengig av -->
     <!-- ========================================================================= -->
-    <section id="slide-7" class="slide-section absolute inset-0 p-8 md:p-12 flex flex-col justify-between overflow-y-auto hidden">
+    <section id="slide-7" class="slide-viewport absolute inset-0 p-6 md:p-8 flex flex-col justify-between overflow-y-auto hidden">
       <div>
-        <div class="flex items-center space-x-3 mb-3">
-          <span class="px-3 py-1 rounded-full bg-blue-50 text-blue-700 border border-blue-200 text-xs font-mono font-bold uppercase tracking-wider">
+        <div class="flex items-center space-x-3 mb-1.5">
+          <span class="px-3 py-0.5 rounded-full bg-blue-50 text-blue-700 border border-blue-200 text-xs font-mono font-bold uppercase tracking-wider">
             GRUNDIG FABRIKK- & GEOPOLITISK ANALYSE
           </span>
-          <span class="text-sm font-semibold text-slate-500 font-mono">P/E ~18–20x (Geopolitisk Rabatt)</span>
+          <span class="text-xs font-semibold text-slate-500 font-mono">P/E ~18–20x • 90% Avansert Silisium</span>
         </div>
-
-        <h1 class="text-3xl md:text-5xl font-extrabold text-slate-900 tracking-tight leading-tight">
-          TSMC (TSM) – Blir de utkonkurrert av USA?
+        <h1 class="text-2xl lg:text-3xl font-black text-slate-900 tracking-tight">
+          TSMC (TSM) – Fabrikken hele verden er avhengig av
         </h1>
-        <p class="mt-2 text-xl md:text-2xl text-slate-600 font-normal leading-relaxed max-w-5xl">
-          Hvorfor handles TSMC til Forward P/E ~18–20x mens amerikansk teknologi handles til 30x+? Er Terafab og CHIPS Act en reell trussel?
-        </p>
-
-        <!-- 3 Knock-out Facts -->
-        <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mt-8">
-          
-          <div class="white-card p-6 rounded-2xl border-2 border-slate-200">
-            <div class="text-3xl font-black text-blue-600 font-mono mb-2">01</div>
-            <h3 class="text-xl font-bold text-slate-900 mb-2">TSMC bygger selv i USA</h3>
-            <p class="text-lg text-slate-700 leading-relaxed">
-              Fab 21 i Arizona masseproduserer allerede 4nm/3nm for Apple og Nvidia med tilsvarende yield som i Taiwan. TSMC sikrer seg selv amerikanske subsidier.
-            </p>
-          </div>
-
-          <div class="white-card p-6 rounded-2xl border-2 border-slate-200">
-            <div class="text-3xl font-black text-blue-600 font-mono mb-2">02</div>
-            <h3 class="text-xl font-bold text-slate-900 mb-2">Yield (>70–80%) er vollgraven</h3>
-            <p class="text-lg text-slate-700 leading-relaxed">
-              Å bygge fabrikk tar 2 år; produksjonspresisjon på 2nm tar tiår å mestre. Konkurrenter (f.eks. Intel IFS) sliter med lavere yield og gigantiske tap.
-            </p>
-          </div>
-
-          <div class="white-card p-6 rounded-2xl border-2 border-slate-200">
-            <div class="text-3xl font-black text-blue-600 font-mono mb-2">03</div>
-            <h3 class="text-xl font-bold text-slate-900 mb-2">Avansert pakking (CoWoS)</h3>
-            <p class="text-lg text-slate-700 leading-relaxed">
-              Moderne AI-brikker (chiplets + HBM) må pakkes tredimensjonalt. TSMC har tilnærmet monopol på CoWoS-pakking, som er den reelle produksjonsflaskehalsen.
-            </p>
-          </div>
-        </div>
-
-        <!-- Bold Verdict Banner -->
-        <div class="mt-8 p-6 rounded-2xl bg-blue-50 border-2 border-blue-200">
-          <div class="flex items-center space-x-4">
-            <div class="p-3 rounded-xl bg-blue-600 text-white shrink-0">
-              <i data-lucide="check" class="w-6 h-6"></i>
-            </div>
-            <div>
-              <p class="text-lg md:text-xl font-bold text-blue-950 leading-relaxed">
-                «USA subsidierer at TSMC bygger i USA for å sikre forsyningen. Å eie TSMC til P/E ~19x er en av markedets mest asymmetriske handler.»
-              </p>
-            </div>
-          </div>
+        <div class="mt-2 p-3 rounded-xl bg-blue-50 border border-blue-200 text-sm font-semibold text-blue-950">
+          🏭 <strong>Kritisk komité-spørsmål:</strong> <em>«Vil USA utkonkurrere TSMC med CHIPS Act og nye Terafabs? Nei – her er hvorfor markedet tar feil og gir oss en feilpriset rabatt.»</em>
         </div>
       </div>
 
-      <!-- Slide Footer -->
-      <div class="no-print pt-4 border-t border-slate-200 flex items-center justify-between text-sm text-slate-500 font-medium">
-        <span>Status: TSMC er uerstattelig i den globale halvlederøkonomien</span>
-        <span class="font-mono text-slate-600">Slide 07 av 10</span>
+      <!-- Middle: 3 Knockout Reality Columns -->
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-4 my-auto py-2">
+        <div class="insight-card p-5 rounded-2xl border-t-4 border-t-blue-600 flex flex-col justify-between">
+          <div>
+            <div class="text-2xl font-black text-blue-600 font-mono mb-2">01</div>
+            <h3 class="text-base font-bold text-slate-900 mb-2">TSMC bygger i USA selv</h3>
+            <p class="text-sm text-slate-600 leading-relaxed">
+              TSMCs gigantiske fabrikker i Arizona (Fab 21) masseproduserer allerede avanserte 4nm/3nm brikker for Apple og Nvidia på amerikansk jord. TSMC sikrer seg dermed selv amerikanske milliard-subsidier.
+            </p>
+          </div>
+          <div class="mt-3 pt-2 border-t border-slate-100 text-xs text-slate-500 font-mono font-semibold">Sikrer forsyning uansett geopolitikk.</div>
+        </div>
+
+        <div class="insight-card p-5 rounded-2xl border-t-4 border-t-emerald-600 flex flex-col justify-between">
+          <div>
+            <div class="text-2xl font-black text-emerald-600 font-mono mb-2">02</div>
+            <h3 class="text-base font-bold text-slate-900 mb-2">Yield (>80%) er vollgraven</h3>
+            <p class="text-sm text-slate-600 leading-relaxed">
+              Å reise et fabrikkbygg tar 2 år. Å klare 80 % feilfrie brikker på 2nm krever tiår med hemmelig prosesskunnskap. Hverken Intel eller nye aktører klarer dette i dag og taper milliarder på feilproduksjon.
+            </p>
+          </div>
+          <div class="mt-3 pt-2 border-t border-slate-100 text-xs text-slate-500 font-mono font-semibold">Uinntakelig teknisk forsprang.</div>
+        </div>
+
+        <div class="insight-card p-5 rounded-2xl border-t-4 border-t-indigo-600 flex flex-col justify-between">
+          <div>
+            <div class="text-2xl font-black text-indigo-600 font-mono mb-2">03</div>
+            <h3 class="text-base font-bold text-slate-900 mb-2">Avansert pakking (CoWoS)</h3>
+            <p class="text-sm text-slate-600 leading-relaxed">
+              Å stable brikkene sammen tredimensjonalt med minne (HBM) krever TSMCs spesialteknologi. Dette er den virkelige flaskehalsen for Nvidia – ikke bare ren silisiumstøping.
+            </p>
+          </div>
+          <div class="mt-3 pt-2 border-t border-slate-100 text-xs text-slate-500 font-mono font-semibold">Monopol på neste generasjons brikkearkitektur.</div>
+        </div>
+      </div>
+
+      <!-- Bottom Verdict Banner -->
+      <div class="p-3.5 rounded-2xl bg-emerald-50 border-2 border-emerald-200 text-sm font-semibold text-emerald-950 flex items-center justify-between shrink-0">
+        <div class="flex items-center space-x-2">
+          <i data-lucide="check" class="w-5 h-5 text-emerald-700 shrink-0"></i>
+          <span><strong>Komité-vurdering:</strong> Handles til kun Forward P/E ~18–20x på grunn av Taiwan-frykt. Dette er verdens mest underprisede monopol.</span>
+        </div>
+        <span class="stat-pill px-3 py-1 bg-white text-emerald-800 border border-emerald-300 rounded-lg">Verdi-grunnfjell: P/E ~19x</span>
       </div>
     </section>
 
     <!-- ========================================================================= -->
-    <!-- SLIDE 8: Sammenligningsmatrise: VRT, ETN, TSM, AVGO -->
+    <!-- SLIDE 8: Sammenligningsmatrise – VRT, ETN, TSM, AVGO -->
     <!-- ========================================================================= -->
-    <section id="slide-8" class="slide-section absolute inset-0 p-8 md:p-12 flex flex-col justify-between overflow-y-auto hidden">
+    <section id="slide-8" class="slide-viewport absolute inset-0 p-6 md:p-8 flex flex-col justify-between overflow-y-auto hidden">
       <div>
-        <div class="flex items-center space-x-3 mb-3">
-          <span class="px-3 py-1 rounded-full bg-slate-100 text-slate-800 border border-slate-300 text-xs font-mono font-bold uppercase tracking-wider">
-            STRATEGISK OPPSETT & MULTIPLER
+        <div class="flex items-center space-x-3 mb-1.5">
+          <span class="px-3 py-0.5 rounded-full bg-slate-100 text-slate-800 border border-slate-300 text-xs font-mono font-bold uppercase tracking-wider">
+            STRATEGISK OVERSIKT & MULTIPLER
           </span>
-          <span class="text-sm font-semibold text-slate-500 font-mono">De 4 Infrastrukturgigantene</span>
+          <span class="text-xs font-semibold text-slate-500 font-mono">De 4 Infrastrukturgigantene</span>
         </div>
-
-        <h1 class="text-3xl md:text-5xl font-extrabold text-slate-900 tracking-tight leading-tight">
-          Sammenligningsmatrise: Infrastrukturgigantene
+        <h1 class="text-2xl lg:text-3xl font-black text-slate-900 tracking-tight">
+          Sammenligningsmatrise – Infrastrukturgigantene
         </h1>
-        <p class="mt-2 text-xl md:text-2xl text-slate-600 font-normal leading-relaxed max-w-5xl">
-          Oversiktlig sammenligning av de 4 dominerende aktørene bak AI-revolusjonens fysiske maskineri.
+        <p class="mt-1 text-sm md:text-base text-slate-600">
+          Enkel og pedagogisk oversikt over de fire selskapene som kontrollerer den fysiske ryggraden bak AI.
         </p>
-
-        <!-- Big, Clean Table with Bold Multiples -->
-        <div class="mt-6 white-card rounded-2xl overflow-hidden border-2 border-slate-200">
-          <table class="w-full text-left border-collapse">
-            <thead>
-              <tr class="bg-slate-100 text-slate-900 font-mono text-sm border-b-2 border-slate-200 uppercase">
-                <th class="p-4 font-bold">Selskap</th>
-                <th class="p-4 font-bold">Kjerneområde</th>
-                <th class="p-4 font-bold">AI-Eksponering</th>
-                <th class="p-4 font-bold">Forward P/E</th>
-                <th class="p-4 font-bold">Komité-profil</th>
-              </tr>
-            </thead>
-            <tbody class="divide-y divide-slate-200 text-base md:text-lg">
-              <tr class="hover:bg-slate-50/80 transition">
-                <td class="p-4 font-bold text-slate-900 flex items-center gap-2">
-                  <span class="w-3 h-3 rounded-full bg-blue-600"></span> Vertiv (VRT)
-                </td>
-                <td class="p-4 font-semibold text-slate-800">Kjøling</td>
-                <td class="p-4 text-slate-700">Direkte væskekjøling (&gt;100 kW)</td>
-                <td class="p-4 font-mono font-bold text-blue-700">~32–36x</td>
-                <td class="p-4"><span class="px-3 py-1 rounded-full bg-blue-50 text-blue-800 text-sm font-bold">Momentum / Flaskehals</span></td>
-              </tr>
-              <tr class="hover:bg-slate-50/80 transition">
-                <td class="p-4 font-bold text-slate-900 flex items-center gap-2">
-                  <span class="w-3 h-3 rounded-full bg-emerald-600"></span> Eaton (ETN)
-                </td>
-                <td class="p-4 font-semibold text-slate-800">Kraftinfrastruktur</td>
-                <td class="p-4 text-slate-700">Nettilknytning, UPS & trafo</td>
-                <td class="p-4 font-mono font-bold text-emerald-700">~27–30x</td>
-                <td class="p-4"><span class="px-3 py-1 rounded-full bg-emerald-50 text-emerald-800 text-sm font-bold">Defensiv industriell AI</span></td>
-              </tr>
-              <tr class="hover:bg-slate-50/80 transition">
-                <td class="p-4 font-bold text-slate-900 flex items-center gap-2">
-                  <span class="w-3 h-3 rounded-full bg-slate-800"></span> TSMC (TSM)
-                </td>
-                <td class="p-4 font-semibold text-slate-800">Produksjonsstøperi</td>
-                <td class="p-4 text-slate-700">&gt;90 % av avansert silisium</td>
-                <td class="p-4 font-mono font-bold text-slate-900">~18–20x</td>
-                <td class="p-4"><span class="px-3 py-1 rounded-full bg-slate-100 text-slate-800 text-sm font-bold">Deep Value / Grunnfjell</span></td>
-              </tr>
-              <tr class="hover:bg-slate-50/80 transition">
-                <td class="p-4 font-bold text-slate-900 flex items-center gap-2">
-                  <span class="w-3 h-3 rounded-full bg-indigo-600"></span> Broadcom (AVGO)
-                </td>
-                <td class="p-4 font-semibold text-slate-800">ASIC & Nettverk</td>
-                <td class="p-4 text-slate-700">Google TPU & Ethernet-svitsjer</td>
-                <td class="p-4 font-mono font-bold text-indigo-700">~25–28x</td>
-                <td class="p-4"><span class="px-3 py-1 rounded-full bg-indigo-50 text-indigo-800 text-sm font-bold">Kvalitetsvekst</span></td>
-              </tr>
-            </tbody>
-          </table>
-        </div>
-
-        <!-- Takeaway Box -->
-        <div class="mt-8 p-5 rounded-2xl bg-slate-100 border border-slate-200 text-base text-slate-800 font-medium">
-          <strong>Nøkkelinnsikt for Komiteen:</strong> TSMC tilbyr den desidert billigste inngangsbilletten til AI-verdenen på P/E ~19x, mens Vertiv gir den reneste eksponeringen mot den fysiske varmeutviklingen.
-        </div>
       </div>
 
-      <!-- Slide Footer -->
-      <div class="no-print pt-4 border-t border-slate-200 flex items-center justify-between text-sm text-slate-500 font-medium">
-        <span>Sammenligning: 4 distinkte måter å spille den fysiske infrastrukturen</span>
-        <span class="font-mono text-slate-600">Slide 08 av 10</span>
+      <!-- Full-Width Responsive Table -->
+      <div class="my-auto py-2 insight-card rounded-2xl overflow-hidden border-2 border-slate-200">
+        <table class="w-full text-left border-collapse text-xs md:text-sm">
+          <thead>
+            <tr class="bg-slate-100 text-slate-800 font-mono uppercase border-b-2 border-slate-200">
+              <th class="p-3.5 font-bold">Selskap</th>
+              <th class="p-3.5 font-bold">Kjerneleveranse</th>
+              <th class="p-3.5 font-bold">Hvorfor uunnværlig</th>
+              <th class="p-3.5 font-bold">Forward P/E</th>
+              <th class="p-3.5 font-bold">Komité-rolle</th>
+            </tr>
+          </thead>
+          <tbody class="divide-y divide-slate-200">
+            <tr class="hover:bg-slate-50">
+              <td class="p-3.5 font-bold text-slate-900 flex items-center gap-2">
+                <span class="w-3 h-3 rounded-full bg-blue-600"></span> Vertiv (VRT)
+              </td>
+              <td class="p-3.5 font-semibold text-slate-800">Væskekjøling</td>
+              <td class="p-3.5 text-slate-600">Serverne smelter med vanlig luftkjøling</td>
+              <td class="p-3.5 font-mono font-bold text-blue-700">~32–36x</td>
+              <td class="p-3.5"><span class="px-2.5 py-0.5 rounded-full bg-blue-50 text-blue-800 text-xs font-bold">Ren momentum-vinner</span></td>
+            </tr>
+            <tr class="hover:bg-slate-50">
+              <td class="p-3.5 font-bold text-slate-900 flex items-center gap-2">
+                <span class="w-3 h-3 rounded-full bg-emerald-600"></span> Eaton (ETN)
+              </td>
+              <td class="p-3.5 font-semibold text-slate-800">Kraft & Trafoer</td>
+              <td class="p-3.5 text-slate-600">3–4 års ventetid på tilknytning til strømnettet</td>
+              <td class="p-3.5 font-mono font-bold text-emerald-700">~27–30x</td>
+              <td class="p-3.5"><span class="px-2.5 py-0.5 rounded-full bg-emerald-50 text-emerald-800 text-xs font-bold">Trygg industriell kraftvekst</span></td>
+            </tr>
+            <tr class="hover:bg-slate-50">
+              <td class="p-3.5 font-bold text-slate-900 flex items-center gap-2">
+                <span class="w-3 h-3 rounded-full bg-slate-800"></span> TSMC (TSM)
+              </td>
+              <td class="p-3.5 font-semibold text-slate-800">Brikkestøperi</td>
+              <td class="p-3.5 text-slate-600">Lager 90 % av verdens avanserte silisium</td>
+              <td class="p-3.5 font-mono font-bold text-slate-900">~18–20x</td>
+              <td class="p-3.5"><span class="px-2.5 py-0.5 rounded-full bg-slate-100 text-slate-800 text-xs font-bold">Ekstrem verdi & monopol</span></td>
+            </tr>
+            <tr class="hover:bg-slate-50">
+              <td class="p-3.5 font-bold text-slate-900 flex items-center gap-2">
+                <span class="w-3 h-3 rounded-full bg-indigo-600"></span> Broadcom (AVGO)
+              </td>
+              <td class="p-3.5 font-semibold text-slate-800">Brikker & Nettverk</td>
+              <td class="p-3.5 text-slate-600">Eier spesialbrikkene til Google og Meta</td>
+              <td class="p-3.5 font-mono font-bold text-indigo-700">~25–28x</td>
+              <td class="p-3.5"><span class="px-2.5 py-0.5 rounded-full bg-indigo-50 text-indigo-800 text-xs font-bold">Kvalitetsvekst & programvare</span></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <!-- Bottom Insight -->
+      <div class="p-3.5 rounded-2xl bg-slate-100 border border-slate-200 text-xs md:text-sm text-slate-800 font-medium shrink-0">
+        <strong>Konklusjon for Komiteen:</strong> TSMC tilbyr den desidert billigste inngangsbilletten på P/E ~19x, mens Vertiv gir renest eksponering mot den fysiske varmeutviklingen.
       </div>
     </section>
 
     <!-- ========================================================================= -->
-    <!-- SLIDE 9: Napatech (NAPA) – Lokal Asymmetrisk Alfa -->
+    <!-- SLIDE 9: Napatech (NAPA) – Vår Asymmetriske Nordiske Opsjon -->
     <!-- ========================================================================= -->
-    <section id="slide-9" class="slide-section absolute inset-0 p-8 md:p-12 flex flex-col justify-between overflow-y-auto hidden">
+    <section id="slide-9" class="slide-viewport absolute inset-0 p-6 md:p-8 flex flex-col justify-between overflow-y-auto hidden">
       <div>
-        <div class="flex items-center space-x-3 mb-3">
-          <span class="px-3 py-1 rounded-full bg-amber-50 text-amber-800 border border-amber-200 text-xs font-mono font-bold uppercase tracking-wider">
+        <div class="flex items-center space-x-3 mb-1.5">
+          <span class="px-3 py-0.5 rounded-full bg-amber-50 text-amber-800 border border-amber-200 text-xs font-mono font-bold uppercase tracking-wider">
             NORDISK ASYMMETRISK ALFA (OSLO BØRS)
           </span>
-          <span class="text-sm font-semibold text-slate-500 font-mono">+50–70 % Analytikeroppside</span>
+          <span class="text-xs font-semibold text-slate-500 font-mono">Akseleratorkort (SmartNIC) • 50–70 % Kursmålsoppside</span>
         </div>
-
-        <h1 class="text-3xl md:text-5xl font-extrabold text-slate-900 tracking-tight leading-tight">
-          Napatech (NAPA) – Lokal Asymmetrisk Alfa
+        <h1 class="text-2xl lg:text-3xl font-black text-slate-900 tracking-tight">
+          Napatech (NAPA) – Vår Asymmetriske Nordiske Opsjon
         </h1>
-        <p class="mt-2 text-xl md:text-2xl text-slate-600 font-normal leading-relaxed max-w-5xl">
-          Nordens eneste «pure-play» AI-nettverksaksje notert på Oslo Børs.
-        </p>
-
-        <!-- 2 Columns: The Case vs The Risk Management -->
-        <div class="grid grid-cols-1 md:grid-cols-2 gap-8 mt-8">
-          
-          <!-- Investeringscaset -->
-          <div class="white-card p-8 rounded-2xl border-2 border-slate-200">
-            <div class="w-10 h-10 rounded-xl bg-blue-50 text-blue-600 flex items-center justify-center mb-4">
-              <i data-lucide="trending-up" class="w-5 h-5"></i>
-            </div>
-            <h3 class="text-2xl font-bold text-slate-900 mb-3">Investeringscaset</h3>
-            <ul class="space-y-4 text-lg text-slate-700 leading-relaxed">
-              <li class="flex items-start gap-3">
-                <i data-lucide="check" class="w-5 h-5 text-blue-600 shrink-0 mt-1"></i>
-                <span><strong>SmartNIC & IPU-teknologi:</strong> Avlaster datapakke-prosessering og frigjør opptil 30 % av CPU-kapasiteten for telecom, sky og AI-servere.</span>
-              </li>
-              <li class="flex items-start gap-3">
-                <i data-lucide="check" class="w-5 h-5 text-blue-600 shrink-0 mt-1"></i>
-                <span><strong>50–70 % Kursmålsoppside:</strong> Analytikere ser markant reprising ved bred kommersiell utrulling via globale server-OEMer.</span>
-              </li>
-            </ul>
-          </div>
-
-          <!-- Strict Risk Protocol -->
-          <div class="white-card p-8 rounded-2xl border-2 border-amber-300 bg-amber-50/30">
-            <div class="w-10 h-10 rounded-xl bg-amber-100 text-amber-800 flex items-center justify-center mb-4">
-              <i data-lucide="shield-alert" class="w-5 h-5"></i>
-            </div>
-            <h3 class="text-2xl font-bold text-amber-950 mb-3">Risikostyring for Komiteen</h3>
-            <div class="text-4xl font-extrabold text-amber-800 font-mono mb-2">5–10 %</div>
-            <div class="text-sm font-bold uppercase tracking-wider text-amber-900 mb-3">Anbefalt Allokeringstak</div>
-            <p class="text-base md:text-lg text-amber-950 leading-relaxed font-medium">
-              Selskapet har høy P/S og kortsiktig negativ bunnlinje. En streng 5–10 % allokering fanger den eksplosive oppsiden uten å utsette porteføljen for en likviditetsfelle eller unødig emisjonsuro.
-            </p>
-          </div>
-        </div>
-
-        <!-- Takeaway Quote -->
-        <div class="mt-8 p-5 rounded-2xl bg-white border-2 border-slate-200 text-base md:text-lg text-slate-800 font-medium">
-          <strong>Moden porteføljestyring:</strong> Ved et uheldig scenario påvirkes totalporteføljen marginalt (&lt;1–2 %), mens en mangedobling tilfører merkbar alfa til fondets avkastning.
+        <div class="mt-2 p-3 rounded-xl bg-amber-50 border border-amber-200 text-sm font-semibold text-amber-950">
+          🚀 <strong>Hvorfor denne aksjen?</strong> <em>«Eneste rendyrkede AI-nettverksaksje på Oslo Børs – med 50–70 % konsensus-oppside dersom deres teknologi tas inn i storskala av globale server-OEMer.»</em>
         </div>
       </div>
 
-      <!-- Slide Footer -->
-      <div class="no-print pt-4 border-t border-slate-200 flex items-center justify-between text-sm text-slate-500 font-medium">
-        <span>Anbefaling: 10 % posisjon gir optimal asymmetrisk oppside</span>
-        <span class="font-mono text-slate-600">Slide 09 av 10</span>
+      <!-- Middle: 4 Deep-Dive Insight Blocks -->
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-4 my-auto py-2">
+        <div class="insight-card p-5 rounded-2xl border-l-4 border-l-blue-600 flex flex-col justify-between">
+          <div>
+            <h3 class="text-base font-bold text-slate-900 mb-1 flex items-center gap-2">
+              <i data-lucide="cpu" class="w-4 h-4 text-blue-600"></i> 1. Kjernevirksomhet: SmartNIC & IPU
+            </h3>
+            <p class="text-sm text-slate-600 leading-relaxed">
+              Lager akseleratorkort (SmartNIC/IPU) som settes i servere for å ta unna tung datatrafikk og sikkerhet. Dette frigjør opptil <strong>20–30 % av serverens hovedprosessor (CPU)</strong> til AI-oppgaver.
+            </p>
+          </div>
+          <div class="mt-2 pt-2 border-t border-slate-100 text-xs text-slate-500 font-mono">Samarbeider tett med Intel og AMD.</div>
+        </div>
+
+        <div class="insight-card p-5 rounded-2xl border-l-4 border-l-emerald-600 flex flex-col justify-between">
+          <div>
+            <h3 class="text-base font-bold text-slate-900 mb-1 flex items-center gap-2">
+              <i data-lucide="trending-up" class="w-4 h-4 text-emerald-600"></i> 2. Analytikernes syn: 50–70 % oppside
+            </h3>
+            <p class="text-sm text-slate-600 leading-relaxed">
+              Ledende nordiske meglerhus har kursmål med 50–70 % oppside. Kommersielle design-wins hos globale serverprodusenter kan utløse en eksplosiv reprising på Oslo Børs.
+            </p>
+          </div>
+          <div class="mt-2 pt-2 border-t border-slate-100 text-xs text-slate-500 font-mono">Høy operasjonell giring når volumet kommer.</div>
+        </div>
+
+        <div class="insight-card p-5 rounded-2xl border-l-4 border-l-rose-500 bg-rose-50/20 flex flex-col justify-between">
+          <div>
+            <h3 class="text-base font-bold text-rose-950 mb-1 flex items-center gap-2">
+              <i data-lucide="alert-triangle" class="w-4 h-4 text-rose-700"></i> 3. Risiko i klartekst
+            </h3>
+            <p class="text-sm text-rose-950 leading-relaxed font-medium">
+              Selskapet har historisk svingende lønnsomhet, høy P/S og møter konkurranse fra giganter. Dette er en vekstaksje med høy volatilitet.
+            </p>
+          </div>
+          <div class="mt-2 pt-2 border-t border-rose-200 text-xs text-rose-900 font-mono">Krever streng porteføljedisiplin.</div>
+        </div>
+
+        <div class="insight-card p-5 rounded-2xl border-l-4 border-l-amber-500 bg-amber-50/30 flex flex-col justify-between">
+          <div>
+            <h3 class="text-base font-bold text-amber-950 mb-1 flex items-center gap-2">
+              <i data-lucide="shield-check" class="w-4 h-4 text-amber-700"></i> 4. Komité-allokering (5–10 %)
+            </h3>
+            <p class="text-sm text-amber-950 leading-relaxed font-medium">
+              Vi foreslår å eie <strong>strengt 5–10 %</strong>. Ved en mangedobling gir det formidabel alfa til fondet, mens et negativt utfall kun påvirker totalporteføljen marginalt (&lt;1–2 %).
+            </p>
+          </div>
+          <div class="mt-2 pt-2 border-t border-amber-200 text-xs text-amber-900 font-mono font-bold">Optimal risiko/avkastningsasymmetri.</div>
+        </div>
+      </div>
+
+      <!-- Bottom Verdict -->
+      <div class="p-3.5 rounded-2xl bg-white border-2 border-slate-200 flex items-center justify-between text-sm shrink-0">
+        <span class="text-slate-800 font-semibold">«Fanger den eksplosive oppsiden uten å utsette fondet for en likviditetsfelle.»</span>
+        <span class="stat-pill px-3 py-1 bg-amber-50 text-amber-900 border border-amber-200 rounded-lg">Allokering: 10 % NAPA</span>
       </div>
     </section>
 
     <!-- ========================================================================= -->
     <!-- SLIDE 10: Den Ferdige 5-Aksjers Porteføljepakken (Pitch-Summary) -->
     <!-- ========================================================================= -->
-    <section id="slide-10" class="slide-section absolute inset-0 p-8 md:p-12 flex flex-col justify-between overflow-y-auto hidden">
+    <section id="slide-10" class="slide-viewport absolute inset-0 p-6 md:p-8 flex flex-col justify-between overflow-y-auto hidden">
       <div>
-        <div class="flex items-center space-x-3 mb-3">
-          <span class="px-3 py-1 rounded-full bg-emerald-50 text-emerald-800 border border-emerald-200 text-xs font-mono font-bold uppercase tracking-wider">
-            ENDELIG ANBEFALING & PITCH
+        <div class="flex items-center space-x-3 mb-1.5">
+          <span class="px-3 py-0.5 rounded-full bg-emerald-50 text-emerald-800 border border-emerald-200 text-xs font-mono font-bold uppercase tracking-wider">
+            ENDELIG PITCH & ALLOKERINGSMANDAT
           </span>
-          <span class="text-sm font-semibold text-slate-500 font-mono">100 % Allokert Modell</span>
+          <span class="text-xs font-semibold text-slate-500 font-mono">100 % Samlet Eksponering</span>
         </div>
-
-        <h1 class="text-3xl md:text-5xl font-extrabold text-slate-900 tracking-tight leading-tight">
+        <h1 class="text-2xl lg:text-3xl font-black text-slate-900 tracking-tight">
           Den Ferdige 5-Aksjers Porteføljepakken
         </h1>
-        <p class="mt-2 text-xl md:text-2xl text-slate-600 font-normal leading-relaxed max-w-5xl">
-          Vår anbefalte kjerneallokering som eier hele den sekulære verdikjeden.
+        <p class="mt-1 text-sm md:text-base text-slate-600">
+          En metodisk vektet portefølje som eier hele den sekulære verdikjeden.
         </p>
+      </div>
 
-        <!-- Allocation Table + Chart Layout -->
-        <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 mt-6">
-          
-          <!-- Table (7 cols) -->
-          <div class="lg:col-span-7 white-card rounded-2xl overflow-hidden border-2 border-slate-200">
-            <table class="w-full text-left border-collapse">
-              <thead>
-                <tr class="bg-slate-100 text-slate-900 font-mono text-sm border-b-2 border-slate-200 uppercase">
-                  <th class="p-3.5">Aksje</th>
-                  <th class="p-3.5">Vekt</th>
-                  <th class="p-3.5">Strategisk Begrunnelse</th>
-                  <th class="p-3.5">Fwd P/E</th>
-                </tr>
-              </thead>
-              <tbody class="divide-y divide-slate-200 text-base">
-                <tr class="hover:bg-slate-50">
-                  <td class="p-3.5 font-black text-slate-900">Alphabet (GOOGL)</td>
-                  <td class="p-3.5 font-mono font-black text-blue-700 text-xl">30 %</td>
-                  <td class="p-3.5 text-slate-700">Verdsettelsesanker & TPU-kontroll</td>
-                  <td class="p-3.5 font-mono font-bold text-slate-900">~20x</td>
-                </tr>
-                <tr class="hover:bg-slate-50">
-                  <td class="p-3.5 font-black text-slate-900">Broadcom (AVGO)</td>
-                  <td class="p-3.5 font-mono font-black text-indigo-700 text-xl">25 %</td>
-                  <td class="p-3.5 text-slate-700">Custom ASIC-duopolet & nettverk</td>
-                  <td class="p-3.5 font-mono font-bold text-slate-900">~26x</td>
-                </tr>
-                <tr class="hover:bg-slate-50">
-                  <td class="p-3.5 font-black text-slate-900">Vertiv (VRT)</td>
-                  <td class="p-3.5 font-mono font-black text-emerald-700 text-xl">20 %</td>
-                  <td class="p-3.5 text-slate-700">Uunnværlig væskekjøling</td>
-                  <td class="p-3.5 font-mono font-bold text-slate-900">~33x</td>
-                </tr>
-                <tr class="hover:bg-slate-50">
-                  <td class="p-3.5 font-black text-slate-900">Ambarella (AMBA)</td>
-                  <td class="p-3.5 font-mono font-black text-amber-700 text-xl">15 %</td>
-                  <td class="p-3.5 text-slate-700">Fysisk AI, datasyn & &lt;10W robotikk</td>
-                  <td class="p-3.5 font-mono text-slate-500">P/S ~6x</td>
-                </tr>
-                <tr class="hover:bg-slate-50">
-                  <td class="p-3.5 font-black text-slate-900">Napatech (NAPA)</td>
-                  <td class="p-3.5 font-mono font-black text-rose-700 text-xl">10 %</td>
-                  <td class="p-3.5 text-slate-700">Lokal nordisk asymmetrisk alfa</td>
-                  <td class="p-3.5 font-mono text-slate-500">P/S opsjon</td>
-                </tr>
-              </tbody>
-            </table>
-          </div>
+      <!-- Middle: Table + Donut Chart -->
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-5 my-auto py-2">
+        <!-- Table (7 cols) -->
+        <div class="lg:col-span-7 insight-card rounded-2xl overflow-hidden border-2 border-slate-200 flex flex-col justify-between">
+          <table class="w-full text-left border-collapse text-xs md:text-sm">
+            <thead>
+              <tr class="bg-slate-100 text-slate-800 font-mono uppercase border-b-2 border-slate-200">
+                <th class="p-3">Aksje</th>
+                <th class="p-3">Vekt</th>
+                <th class="p-3">Strategisk Begrunnelse</th>
+                <th class="p-3">Fwd P/E</th>
+              </tr>
+            </thead>
+            <tbody class="divide-y divide-slate-200">
+              <tr class="hover:bg-slate-50">
+                <td class="p-3 font-bold text-slate-900">Alphabet (GOOGL)</td>
+                <td class="p-3 font-mono font-black text-blue-700 text-base md:text-lg">30 %</td>
+                <td class="p-3 text-slate-600">Verdsettelsesanker & egne TPU-brikker</td>
+                <td class="p-3 font-mono font-bold text-slate-900">~20x</td>
+              </tr>
+              <tr class="hover:bg-slate-50">
+                <td class="p-3 font-bold text-slate-900">Broadcom (AVGO)</td>
+                <td class="p-3 font-mono font-black text-indigo-700 text-base md:text-lg">25 %</td>
+                <td class="p-3 text-slate-600">Custom ASIC-duopolet & datasenternettverk</td>
+                <td class="p-3 font-mono font-bold text-slate-900">~26x</td>
+              </tr>
+              <tr class="hover:bg-slate-50">
+                <td class="p-3 font-bold text-slate-900">Vertiv (VRT)</td>
+                <td class="p-3 font-mono font-black text-emerald-700 text-base md:text-lg">20 %</td>
+                <td class="p-3 text-slate-600">Uunnværlig væskekjøling for &gt;100 kW racks</td>
+                <td class="p-3 font-mono font-bold text-slate-900">~33x</td>
+              </tr>
+              <tr class="hover:bg-slate-50">
+                <td class="p-3 font-bold text-slate-900">Ambarella (AMBA)</td>
+                <td class="p-3 font-mono font-black text-amber-700 text-base md:text-lg">15 %</td>
+                <td class="p-3 text-slate-600">Fysisk AI, roboter & datasyn under 10 Watt</td>
+                <td class="p-3 font-mono text-slate-500">P/S ~6x</td>
+              </tr>
+              <tr class="hover:bg-slate-50">
+                <td class="p-3 font-bold text-slate-900">Napatech (NAPA)</td>
+                <td class="p-3 font-mono font-black text-rose-700 text-base md:text-lg">10 %</td>
+                <td class="p-3 text-slate-600">Lokal rakett på Oslo Børs med høy oppside</td>
+                <td class="p-3 font-mono text-slate-500">P/S opsjon</td>
+              </tr>
+            </tbody>
+          </table>
 
-          <!-- Chart & Summary Stats (5 cols) -->
-          <div class="lg:col-span-5 white-card p-6 rounded-2xl border-2 border-slate-200 flex flex-col justify-between">
-            <div class="flex items-center justify-between mb-2">
-              <span class="text-xs font-mono font-bold uppercase text-slate-500">Portefølje-smultring</span>
-              <span class="text-xs font-mono font-bold text-blue-700">Total: 100 %</span>
-            </div>
-
-            <!-- Chart -->
-            <div class="relative h-44 w-full flex items-center justify-center">
-              <canvas id="portfolioChartLight"></canvas>
-            </div>
-
-            <!-- Quick Metrics -->
-            <div class="grid grid-cols-3 gap-2 mt-4 pt-4 border-t border-slate-200 text-center font-mono">
-              <div class="p-2 rounded-xl bg-slate-50 border border-slate-200">
-                <div class="text-xs text-slate-500 font-sans font-semibold">Vektet P/E</div>
-                <div class="text-base font-extrabold text-blue-700">~23.4x</div>
-              </div>
-              <div class="p-2 rounded-xl bg-slate-50 border border-slate-200">
-                <div class="text-xs text-slate-500 font-sans font-semibold">Capex-eksponering</div>
-                <div class="text-base font-extrabold text-emerald-700">100 %</div>
-              </div>
-              <div class="p-2 rounded-xl bg-slate-50 border border-slate-200">
-                <div class="text-xs text-slate-500 font-sans font-semibold">Nvidia-risiko</div>
-                <div class="text-base font-extrabold text-slate-800">Lav</div>
-              </div>
-            </div>
+          <div class="p-2.5 bg-slate-50 border-t border-slate-200 text-xs font-semibold text-slate-600 flex justify-between">
+            <span>Fondets risikobudsjett: ~25–33 %</span>
+            <span class="text-blue-700">Total tech-vekt: 100 %</span>
           </div>
         </div>
 
-        <!-- Closing Statement Callout -->
-        <div class="mt-6 p-6 rounded-2xl bg-blue-600 text-white shadow-md">
-          <div class="flex items-start space-x-4">
-            <div class="p-2 rounded-xl bg-white/20 text-white shrink-0 mt-0.5">
-              <i data-lucide="check-check" class="w-6 h-6"></i>
+        <!-- Chart & Stats (5 cols) -->
+        <div class="lg:col-span-5 insight-card p-4 rounded-2xl border-2 border-slate-200 flex flex-col justify-between">
+          <div class="flex items-center justify-between mb-1">
+            <span class="text-xs font-mono font-bold uppercase text-slate-500">Allokeringsfordeling</span>
+            <span class="text-xs font-mono font-bold text-blue-700">100 % Total</span>
+          </div>
+
+          <div class="relative h-36 w-full flex items-center justify-center">
+            <canvas id="portfolioChartLight"></canvas>
+          </div>
+
+          <div class="grid grid-cols-3 gap-2 mt-2 pt-2 border-t border-slate-200 text-center font-mono">
+            <div class="p-1.5 rounded-xl bg-slate-50 border border-slate-200">
+              <div class="text-[10px] text-slate-500 font-sans font-semibold">Vektet P/E</div>
+              <div class="text-sm font-black text-blue-700">~23.4x</div>
             </div>
-            <div>
-              <h4 class="text-lg font-extrabold uppercase tracking-wide">Sluttappell til Investeringskomiteen:</h4>
-              <p class="text-lg md:text-xl font-medium mt-1 leading-relaxed text-blue-50">
-                «Vi unngår konsentrasjonsrisiko i Nvidia og sen-syklisk shipping, og eier i stedet hele verdikjeden: fra silisium og kjøling til programvare og fysisk robotikk.»
-              </p>
+            <div class="p-1.5 rounded-xl bg-slate-50 border border-slate-200">
+              <div class="text-[10px] text-slate-500 font-sans font-semibold">Capex-korrelasjon</div>
+              <div class="text-sm font-black text-emerald-700">100 %</div>
+            </div>
+            <div class="p-1.5 rounded-xl bg-slate-50 border border-slate-200">
+              <div class="text-[10px] text-slate-500 font-sans font-semibold">Nvidia-sårbarhet</div>
+              <div class="text-sm font-black text-slate-800">Lav</div>
             </div>
           </div>
         </div>
       </div>
 
-      <!-- Slide Footer -->
-      <div class="no-print pt-4 border-t border-slate-200 flex items-center justify-between text-sm text-slate-500 font-medium">
-        <span class="font-bold text-blue-700">Mandat klart for godkjennelse</span>
-        <span class="font-mono text-slate-600">Slide 10 av 10 • Slutt</span>
+      <!-- Bottom Pitch Closing Statement Callout -->
+      <div class="p-4 rounded-2xl bg-blue-600 text-white shadow-md shrink-0">
+        <div class="flex items-start space-x-3.5">
+          <div class="p-2 rounded-xl bg-white/20 text-white shrink-0 mt-0.5">
+            <i data-lucide="check-check" class="w-5 h-5"></i>
+          </div>
+          <div>
+            <h4 class="text-sm font-extrabold uppercase tracking-wide">Avsluttende appell til Investeringskomiteen:</h4>
+            <p class="text-sm md:text-base font-medium mt-0.5 leading-relaxed text-blue-50">
+              «Vi satser ikke blindt på at Nvidia skal doble seg en gang til fra 5 000 mrd dollar, og vi unngår sen-syklisk shipping på toppen av ratene. Vi eier hele den uunngåelige verdikjeden: fra silisium og kjøling til programvare og fysisk robotikk.»
+            </p>
+          </div>
+        </div>
       </div>
     </section>
 
@@ -1101,57 +1103,56 @@
   <!-- ========================================================================= -->
   <div id="gridModal" class="no-print fixed inset-0 bg-slate-900/50 backdrop-blur-xs z-50 flex items-center justify-center p-6 hidden">
     <div class="bg-white border border-slate-200 rounded-3xl w-full max-w-5xl max-h-[85vh] flex flex-col overflow-hidden shadow-2xl">
-      <div class="p-5 border-b border-slate-200 flex items-center justify-between">
+      <div class="p-4 border-b border-slate-200 flex items-center justify-between">
         <div class="flex items-center space-x-2">
           <i data-lucide="grid" class="w-5 h-5 text-blue-600"></i>
-          <h3 class="text-base font-bold text-slate-900 uppercase tracking-wider">Lysbilde-oversikt (10 Slides)</h3>
+          <h3 class="text-sm font-bold text-slate-900 uppercase tracking-wider">Lysbilde-oversikt (10 Slides)</h3>
         </div>
-        <button onclick="toggleGridModal()" class="p-2 rounded-xl text-slate-400 hover:text-slate-900 hover:bg-slate-100 transition">
+        <button onclick="toggleGridModal()" class="p-1.5 rounded-xl text-slate-400 hover:text-slate-900 hover:bg-slate-100 transition">
           <i data-lucide="x" class="w-5 h-5"></i>
         </button>
       </div>
 
-      <div class="p-6 overflow-y-auto grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-4">
-        <!-- 10 Grid Items -->
-        <div onclick="jumpToSlide(1); toggleGridModal();" class="p-4 rounded-xl border border-slate-200 hover:border-blue-500 cursor-pointer transition hover:bg-blue-50/40">
+      <div class="p-6 overflow-y-auto grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-3.5">
+        <div onclick="jumpToSlide(1); toggleGridModal();" class="p-3.5 rounded-xl border border-slate-200 hover:border-blue-500 cursor-pointer transition hover:bg-blue-50/40">
           <div class="text-xs font-mono font-bold text-blue-700 mb-1">SLIDE 01</div>
-          <h4 class="font-bold text-slate-900 text-sm">Tittel & Portefølje</h4>
+          <h4 class="font-bold text-slate-900 text-xs">Tittel & Portefølje</h4>
         </div>
-        <div onclick="jumpToSlide(2); toggleGridModal();" class="p-4 rounded-xl border border-slate-200 hover:border-blue-500 cursor-pointer transition hover:bg-blue-50/40">
+        <div onclick="jumpToSlide(2); toggleGridModal();" class="p-3.5 rounded-xl border border-slate-200 hover:border-blue-500 cursor-pointer transition hover:bg-blue-50/40">
           <div class="text-xs font-mono font-bold text-blue-700 mb-1">SLIDE 02</div>
-          <h4 class="font-bold text-slate-900 text-sm">Broadcom vs. Marvell</h4>
+          <h4 class="font-bold text-slate-900 text-xs">Broadcom vs. Marvell</h4>
         </div>
-        <div onclick="jumpToSlide(3); toggleGridModal();" class="p-4 rounded-xl border border-slate-200 hover:border-blue-500 cursor-pointer transition hover:bg-blue-50/40">
+        <div onclick="jumpToSlide(3); toggleGridModal();" class="p-3.5 rounded-xl border border-slate-200 hover:border-blue-500 cursor-pointer transition hover:bg-blue-50/40">
           <div class="text-xs font-mono font-bold text-blue-700 mb-1">SLIDE 03</div>
-          <h4 class="font-bold text-slate-900 text-sm">Ambarella (<10W)</h4>
+          <h4 class="font-bold text-slate-900 text-xs">Ambarella (<10W)</h4>
         </div>
-        <div onclick="jumpToSlide(4); toggleGridModal();" class="p-4 rounded-xl border border-slate-200 hover:border-blue-500 cursor-pointer transition hover:bg-blue-50/40">
+        <div onclick="jumpToSlide(4); toggleGridModal();" class="p-3.5 rounded-xl border border-slate-200 hover:border-blue-500 cursor-pointer transition hover:bg-blue-50/40">
           <div class="text-xs font-mono font-bold text-blue-700 mb-1">SLIDE 04</div>
-          <h4 class="font-bold text-slate-900 text-sm">Nokia (Telekom-anker)</h4>
+          <h4 class="font-bold text-slate-900 text-xs">Nokia (Telekom-anker)</h4>
         </div>
-        <div onclick="jumpToSlide(5); toggleGridModal();" class="p-4 rounded-xl border border-slate-200 hover:border-blue-500 cursor-pointer transition hover:bg-blue-50/40">
+        <div onclick="jumpToSlide(5); toggleGridModal();" class="p-3.5 rounded-xl border border-slate-200 hover:border-blue-500 cursor-pointer transition hover:bg-blue-50/40">
           <div class="text-xs font-mono font-bold text-blue-700 mb-1">SLIDE 05</div>
-          <h4 class="font-bold text-slate-900 text-sm">Alphabet vs. Meta</h4>
+          <h4 class="font-bold text-slate-900 text-xs">Alphabet vs. Meta</h4>
         </div>
-        <div onclick="jumpToSlide(6); toggleGridModal();" class="p-4 rounded-xl border border-slate-200 hover:border-blue-500 cursor-pointer transition hover:bg-blue-50/40">
+        <div onclick="jumpToSlide(6); toggleGridModal();" class="p-3.5 rounded-xl border border-slate-200 hover:border-blue-500 cursor-pointer transition hover:bg-blue-50/40">
           <div class="text-xs font-mono font-bold text-blue-700 mb-1">SLIDE 06</div>
-          <h4 class="font-bold text-slate-900 text-sm">Vertiv & Eaton</h4>
+          <h4 class="font-bold text-slate-900 text-xs">Vertiv & Eaton</h4>
         </div>
-        <div onclick="jumpToSlide(7); toggleGridModal();" class="p-4 rounded-xl border border-slate-200 hover:border-blue-500 cursor-pointer transition hover:bg-blue-50/40">
+        <div onclick="jumpToSlide(7); toggleGridModal();" class="p-3.5 rounded-xl border border-slate-200 hover:border-blue-500 cursor-pointer transition hover:bg-blue-50/40">
           <div class="text-xs font-mono font-bold text-blue-700 mb-1">SLIDE 07</div>
-          <h4 class="font-bold text-slate-900 text-sm">TSMC vs. USA</h4>
+          <h4 class="font-bold text-slate-900 text-xs">TSMC vs. USA</h4>
         </div>
-        <div onclick="jumpToSlide(8); toggleGridModal();" class="p-4 rounded-xl border border-slate-200 hover:border-blue-500 cursor-pointer transition hover:bg-blue-50/40">
+        <div onclick="jumpToSlide(8); toggleGridModal();" class="p-3.5 rounded-xl border border-slate-200 hover:border-blue-500 cursor-pointer transition hover:bg-blue-50/40">
           <div class="text-xs font-mono font-bold text-blue-700 mb-1">SLIDE 08</div>
-          <h4 class="font-bold text-slate-900 text-sm">Sammenligningsmatrise</h4>
+          <h4 class="font-bold text-slate-900 text-xs">Sammenligningsmatrise</h4>
         </div>
-        <div onclick="jumpToSlide(9); toggleGridModal();" class="p-4 rounded-xl border border-slate-200 hover:border-blue-500 cursor-pointer transition hover:bg-blue-50/40">
+        <div onclick="jumpToSlide(9); toggleGridModal();" class="p-3.5 rounded-xl border border-slate-200 hover:border-blue-500 cursor-pointer transition hover:bg-blue-50/40">
           <div class="text-xs font-mono font-bold text-blue-700 mb-1">SLIDE 09</div>
-          <h4 class="font-bold text-slate-900 text-sm">Napatech (NAPA)</h4>
+          <h4 class="font-bold text-slate-900 text-xs">Napatech (NAPA)</h4>
         </div>
-        <div onclick="jumpToSlide(10); toggleGridModal();" class="p-4 rounded-xl border border-slate-200 hover:border-blue-500 cursor-pointer transition hover:bg-blue-50/40">
+        <div onclick="jumpToSlide(10); toggleGridModal();" class="p-3.5 rounded-xl border border-slate-200 hover:border-blue-500 cursor-pointer transition hover:bg-blue-50/40">
           <div class="text-xs font-mono font-bold text-blue-700 mb-1">SLIDE 10</div>
-          <h4 class="font-bold text-slate-900 text-sm">5-Aksjers Portefølje</h4>
+          <h4 class="font-bold text-slate-900 text-xs">5-Aksjers Portefølje</h4>
         </div>
       </div>
     </div>
@@ -1162,13 +1163,13 @@
   <!-- ========================================================================= -->
   <div id="notesModal" class="no-print fixed inset-y-0 right-0 w-full sm:w-[440px] bg-white border-l border-slate-200 z-50 p-6 flex flex-col justify-between shadow-2xl transform translate-x-full transition-transform duration-300">
     <div>
-      <div class="flex items-center justify-between pb-4 border-b border-slate-200 mb-4">
+      <div class="flex items-center justify-between pb-3 border-b border-slate-200 mb-3">
         <div class="flex items-center space-x-2">
           <div class="w-8 h-8 rounded-lg bg-emerald-50 text-emerald-700 flex items-center justify-center">
             <i data-lucide="file-text" class="w-4 h-4"></i>
           </div>
           <div>
-            <h3 class="text-base font-bold text-slate-900">Komité-talepunkter</h3>
+            <h3 class="text-sm font-bold text-slate-900">Komité-talepunkter</h3>
             <span class="text-xs font-mono text-slate-500" id="notesSlideIndicator">Slide 01 av 10</span>
           </div>
         </div>
@@ -1177,13 +1178,13 @@
         </button>
       </div>
 
-      <div id="notesContent" class="text-sm text-slate-700 space-y-4 overflow-y-auto max-h-[70vh] pr-1 leading-relaxed">
+      <div id="notesContent" class="text-xs text-slate-700 space-y-3 overflow-y-auto max-h-[70vh] pr-1 leading-relaxed">
         <!-- Dynamically injected per slide -->
       </div>
     </div>
 
-    <div class="pt-4 border-t border-slate-200 text-xs text-slate-500 flex items-center justify-between">
-      <span>Tast <kbd class="px-1.5 py-0.5 bg-slate-100 border border-slate-300 rounded font-mono text-slate-700">N</kbd> for å lukke</span>
+    <div class="pt-3 border-t border-slate-200 text-xs text-slate-500 flex items-center justify-between">
+      <span>Tast <kbd class="px-1 py-0.5 bg-slate-100 border border-slate-300 rounded font-mono text-slate-700">N</kbd> for å lukke</span>
       <span class="text-blue-700 font-mono font-bold">Presenter Notes</span>
     </div>
   </div>
@@ -1198,14 +1199,14 @@
 
     const slideTitles = [
       "Tittel & Porteføljestrategi",
-      "Broadcom vs. Marvell – Custom ASIC",
+      "Broadcom vs. Marvell – Spesialbrikker",
       "Ambarella – Fysisk AI og Datasyn",
-      "Nokia – Det Essensielle Ankeret",
+      "Nokia – Det Glemte Ankeret",
       "Alphabet vs. Meta Platforms",
-      "Fysiske Flaskehalser – Vertiv & Eaton",
-      "TSMC – Blir de utkonkurrert av USA?",
+      "Vertiv & Eaton – Kraft og Kjøling",
+      "TSMC – Fabrikken verden må ha",
       "Sammenligningsmatrise: Infrastruktur",
-      "Napatech – Lokal Asymmetrisk Alfa",
+      "Napatech – Vår Nordiske Opsjon",
       "Den Ferdige 5-Aksjers Porteføljepakken"
     ];
 
@@ -1215,7 +1216,7 @@
           <h4 class="font-bold text-blue-700 mb-1">Mål for møtet:</h4>
           <p>Forankre allokeringen av 4–5 kjerneaksjer (~25–33 % av fondets risiko) på en metodisk, moden måte.</p>
         </div>
-        <div class="p-3 bg-rose-50 border border-rose-200 rounded-xl mt-3">
+        <div class="p-3 bg-rose-50 border border-rose-200 rounded-xl mt-2">
           <h4 class="font-bold text-rose-800 mb-1">Shipping-motargument:</h4>
           <p>Hvis komiteen spør om shipping: Understrek at fraktratene er på toppen av sykelen, mens AI-infrastruktur er en flerårig sekulær capex-bølge.</p>
         </div>
@@ -1223,7 +1224,7 @@
       2: `
         <div class="p-3 bg-blue-50 border border-blue-200 rounded-xl">
           <h4 class="font-bold text-blue-700 mb-1">Hovedpoeng:</h4>
-          <p>Broadcom og Marvell har et 95 % duopol på Custom ASIC. Broadcom er komiteens trygge anker med VMware-kontantstrøm; Marvell har ren optisk oppside.</p>
+          <p>Broadcom og Marvell har et 95 % duopol på spesialbrikker (Custom ASIC). Broadcom er komiteens trygge anker med VMware-kontantstrøm; Marvell har ren optisk oppside.</p>
         </div>
       `,
       3: `
@@ -1413,15 +1414,15 @@
           datasets: [{
             data: [30, 25, 20, 15, 10],
             backgroundColor: [
-              "#2563eb", // Blue
-              "#4f46e5", // Indigo
-              "#059669", // Emerald
-              "#d97706", // Amber
-              "#e11d48"  // Rose
+              "#2563eb",
+              "#4f46e5",
+              "#059669",
+              "#d97706",
+              "#e11d48"
             ],
             borderColor: '#ffffff',
-            borderWidth: 3,
-            hoverOffset: 6
+            borderWidth: 2,
+            hoverOffset: 5
           }]
         },
         options: {
@@ -1438,13 +1439,13 @@
                 }
               },
               backgroundColor: '#0f172a',
-              titleFont: { family: 'Inter', size: 13, weight: 'bold' },
-              bodyFont: { family: 'Inter', size: 12 },
-              padding: 10,
-              cornerRadius: 8
+              titleFont: { family: 'Inter', size: 12, weight: 'bold' },
+              bodyFont: { family: 'Inter', size: 11 },
+              padding: 8,
+              cornerRadius: 6
             }
           },
-          cutout: '70%'
+          cutout: '68%'
         }
       });
     }
